@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu");
+:root {
+  --gray1: #e4e4e7;
+  --gray2: #d4d4d8;
+  --gray3: #a1a1aa;
+  --gray4: #71717a;
+  --gray5: #52525b;
+}
+
+.page-nav {
+  cursor: pointer;
+}
+
+:focus {
+  outline: none;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.input-first input {
+  @apply border rounded-xl ml-1;
+}
+
+.input-register input {
+  @apply border ml-1;
+}
+
+:active {
+  outline: none;
+}
+
+a a:visited.page-nav {
+  color: inherit;
+}
+
+#shadow1 {
+  text-shadow: 0 0 2px #dfdfdf, -3px 4px 0 #b8b8b8, -6px 8px 0 #747474,
+    -9px 13px 0 #343434, -13px 16px 0 #000;
+}
+
+.left-gradient {
+  background: linear-gradient(
+    to right,
+    var(--gray5) 20%,
+    var(--gray4) 20% 40%,
+    var(--gray3) 40% 60%,
+    var(--gray2) 60% 80%,
+    var(--gray1) 80% 100%
+  );
+}
+
+.right-gradient {
+  background: linear-gradient(
+    to left,
+    var(--gray5) 20%,
+    var(--gray4) 20% 40%,
+    var(--gray3) 40% 60%,
+    var(--gray2) 60% 80%,
+    var(--gray1) 80% 100%
+  );
+}
+
+.btn {
+  @apply font-bold py-2 px-4 rounded;
+}
+
+.btn-black {
+  background-image: linear-gradient(0deg, #1b1b1b, #5f5d5d);
+  @apply rounded-full text-white font-bold block ml-3 px-4 rounded-full;
+}
+
+.btn-black:hover {
+  background-image: none;
+  @apply bg-warmgray-500;
+}
+
+.active {
+  @apply text-2xl;
+  text-decoration: underline;
+}
+
+.top-header {
+  @apply text-center mb-7;
+}
+
+.friends-table {
+  border-collapse: separate;
+  border-spacing: 0.3em 0.4em;
+}
