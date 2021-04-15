@@ -20,7 +20,7 @@
         {{ episodes[0].program_name }} - senaste avsnitten
       </h1>
       <div class="flex justify-center">
-        <div v-if="!gradedProgram">
+        <div v-if="!currentGrade">
           <select class="btn-black pl-3 pr-1" v-model="programGrade">
             <option disabled value>
               Betygsätt {{ episodes[0].program_name }}
@@ -33,7 +33,7 @@
           </select>
         </div>
         <div v-else>
-          <p>Betyg: {{ programGrade }}</p>
+          <p>Betyg: {{ currentGrade }}</p>
         </div>
       </div>
     </div>
@@ -116,7 +116,6 @@ export default {
         this.currentProgram.id,
         this.currentProgram.name
       )
-      this.gradedProgram = true
     },
   },
 
@@ -133,10 +132,11 @@ export default {
       return result.slice(0, 10)
     },
     currentProgram() {
+      console.log("currentProgram UPDATE!!")
       console.log("episode 1 from currentProgram()", this.episodes[0])
       if (this.episodes.length) {
         return {
-          id: this.episodes[0].program_id,
+          id: String(this.episodes[0].program_id),
           name: this.episodes[0].program_name,
         }
       } else {
@@ -151,11 +151,18 @@ export default {
       console.log("All stored programs", allPrograms)
       return allPrograms
     },
-    programIds() {
+    currentGrade() {
+      console.log("programIds UPDATE!!")
+      console.log("Running programIds")
       if (this.storedPrograms.length) {
-        let Ids = this.storedPrograms.filter((prog) => prog.grade)
-        console.log("prog Ids: ", Ids)
-        return Ids
+        console.log("Stored progs from progIds", this.storedPrograms)
+        console.log("currentProg", this.currentProgram.id)
+        console.log("currentProg type", typeof this.currentProgram.id)
+        let storedProg = this.storedPrograms.filter(
+          (prog) => prog.programid === this.currentProgram.id
+        )
+        console.log("storedProg", storedProg)
+        return storedProg[0].betyg
       }
       return undefined
     },
