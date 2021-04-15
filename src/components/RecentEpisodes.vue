@@ -19,17 +19,22 @@
       <h1 class="text-center mb-2">
         {{ episodes[0].program_name }} - senaste avsnitten
       </h1>
-      <div v-if="true" class="flex justify-center">
-        <select class="btn-black pl-3 pr-1" v-model="programGrade">
-          <option disabled value>
-            Betygsätt {{ episodes[0].program_name }}
-          </option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+      <div class="flex justify-center">
+        <div v-if="!gradedProgram">
+          <select class="btn-black pl-3 pr-1" v-model="programGrade">
+            <option disabled value>
+              Betygsätt {{ episodes[0].program_name }}
+            </option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <div v-else>
+          <p>Betyg: {{ programGrade }}</p>
+        </div>
       </div>
     </div>
 
@@ -111,6 +116,7 @@ export default {
         this.currentProgram.id,
         this.currentProgram.name
       )
+      this.gradedProgram = true
     },
   },
 
