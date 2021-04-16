@@ -16,7 +16,7 @@ a {
   <div>
     <div class="bg-black">
       <nav
-        class="flex mdplus:grid grid-cols-topmenu items-center justify-between flex-wrap mx-auto pt-3 py-4 pb-1.5 sm:p-4"
+        class="flex mdplus:grid grid-cols-topmenu items-center justify-between flex-wrap mx-auto pt-3 py-4 pb-3 sm:p-4"
       >
         <div
           class="text-left flex items-center flex-shrink-0 text-white mr-6 p-1.5"
@@ -47,14 +47,14 @@ a {
           id="menu"
         >
           <div
-            class="transform text- font-radio mdplus:flex-grow lg:translate-y-2.5"
+            class="transform -mt-3 sm:mt-0 font-radio mdplus:flex-grow lg:translate-y-2.5"
           >
             <router-link
               v-for="item in menuItems"
               :key="item.name"
-              class="block mt-4 mdplus:inline-block bg-warmgray-200 text-black px-2 lg:mt-0 hover:bg-warmgray-50 mx-1.5"
+              class="block text-warmgray-200 mt-4 mdplus:inline-block mdplus:bg-warmgray-200 mdplus:text-black px-2 lg:mt-0 mdplus:hover:bg-warmgray-50 mx-1.5"
               :to="item.link"
-              >{{ item.name }}</router-link
+              ><div class="inline-block">{{ item.name }}</div></router-link
             >
           </div>
         </div>
