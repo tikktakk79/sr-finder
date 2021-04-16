@@ -25,7 +25,7 @@
         </button>
 
         <ViewGrade v-if="graded" :grade="episode.grade"></ViewGrade>
-        <div v-if="enableGrading && !isGraded">
+        <div v-if="enableGrading && !currentGrade">
           <select class="btn-black pl-3 pr-1" v-model="grade">
             <option disabled value>Betygsätt</option>
             <option value="1">1</option>
@@ -132,7 +132,7 @@ export default {
 
       return inStorage
     },
-    isGraded: function () {
+    currentGrade: function () {
       let graded = false
       let storedEpisodes = []
 
@@ -148,9 +148,10 @@ export default {
 
       if (graded) {
         console.log("This ep is graded!", storedEpisodes[0])
+        return storedEpisodes[0].grade
       }
 
-      return graded
+      return undefined
     },
     date: function () {
       let dateRaw = this.episode.pub_datum_utc
