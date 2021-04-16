@@ -24,7 +24,7 @@
           Ta bort
         </button>
 
-        <p v-if="graded">Betyg: {{ episode.grade }}</p>
+        <ViewGrade v-if="graded" :grade="episode.grade"></ViewGrade>
         <div v-if="enableGrading && !isGraded">
           <select class="btn-black pl-3 pr-1" v-model="grade">
             <option disabled value>Betygsätt</option>
@@ -42,7 +42,12 @@
 
 <script>
 import storageCalls from "@/services/user_storage/StorageCalls.js"
-import { SAVE_EPISODE, REMOVE_EPISODE, GET_EPISODES } from "@/store/actions/user"
+import ViewGrade from "@/components/ViewGrade.vue"
+import {
+  SAVE_EPISODE,
+  REMOVE_EPISODE,
+  GET_EPISODES,
+} from "@/store/actions/user"
 export default {
   data() {
     return {
@@ -75,13 +80,14 @@ export default {
       default: false,
     },
   },
+  components: { ViewGrade },
   methods: {
     saveEpisode(grade = null) {
-      console.log("modEp", this.episode);
+      console.log("modEp", this.episode)
       let modEpisode = this.episode
       if (grade) {
-        console.log("Setting GRADE", grade);
-  
+        console.log("Setting GRADE", grade)
+
         modEpisode.grade = grade
       }
       this.$store
@@ -114,19 +120,21 @@ export default {
     isStored: function () {
       let stored = this.$store.state.user.episodes
       let episodeIds = stored.map((ep) => ep.episode_id)
-      console.log("Typeof currEPId", typeof this.episode.episode_id);
-      console.log("Typeof epId[0]", typeof episodeIds[0]);
+      console.log("Typeof currEPId", typeof this.episode.episode_id)
+      console.log("Typeof epId[0]", typeof episodeIds[0])
       let inStorage = episodeIds.includes(this.episode.episode_id)
 
-      console.log("This ep from isStored", this.episode);
-      console.log("$store.state.user.episodes isStored", this.$store.state.user.episodes);
+      console.log("This ep from isStored", this.episode)
+      console.log(
+        "$store.state.user.episodes isStored",
+        this.$store.state.user.episodes
+      )
 
       return inStorage
     },
     isGraded: function () {
       let graded = false
       let storedEpisodes = []
-      
 
       if (this.isStored) {
         storedEpisodes = this.$store.state.user.episodes.filter(
@@ -138,8 +146,8 @@ export default {
 
       graded = !!(storedEpisodes.length > 0 && !!storedEpisodes[0].grade)
 
-      if(graded) {
-        console.log("This ep is graded!",storedEpisodes[0])
+      if (graded) {
+        console.log("This ep is graded!", storedEpisodes[0])
       }
 
       return graded
