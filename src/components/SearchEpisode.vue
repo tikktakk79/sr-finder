@@ -49,6 +49,7 @@
 import srCalls from "@/services/sr_api/ApiCalls.js"
 import ViewEpisode from "@/components/ViewEpisode.vue"
 import PageLink from "@/components/PageLink.vue"
+import { mapGetters } from "vuex"
 export default {
   name: "SearchEpisode",
   data() {
@@ -83,6 +84,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      allEpisodes: "getEpisodes",
+    }),
     episodes: function () {
       let modEpisodes = this.rawEpisodes.map((rawEp) => {
         let mod = {
@@ -99,6 +103,11 @@ export default {
       })
       console.log("Modepisodes", modEpisodes)
       return modEpisodes
+    },
+  },
+  watch: {
+    allEpisodes: function () {
+      console.log("Change in allEpisodes")
     },
   },
 }

@@ -6,7 +6,6 @@
       :episode="ep"
       :graded="true"
       :key="ep.id"
-      @
     ></ViewEpisode>
   </div>
 </template>

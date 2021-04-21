@@ -32,6 +32,11 @@ const state = {
 
 const getters = {
   gotEpisodes: (state) => !!state.episodes.length,
+  getEpisodes: (state) => state.episodes,
+  getEpisodeIds: (state) => {
+    let Ids = state.episodes.map((ep) => ep.episode_id)
+    return Ids
+  },
 }
 
 const actions = {

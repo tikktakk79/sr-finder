@@ -12,37 +12,18 @@
       </h2>
       <p class="text-gray-900 px-2">{{ episode.description }}</p>
       <p class="text-center text-sm pt-2">Publicerat: {{ date }}</p>
-      <div class="flex justify-center mt-2">
-        <button
-          class="btn-black"
-          v-if="hasAddButton && !isStored"
-          @click="saveEpisode(null)"
-        >
-          Spara
-        </button>
-        <button class="btn-black" v-if="hasRemoveButton" @click="removeEpisode">
-          Ta bort
-        </button>
 
-        <ViewGrade v-if="graded" :grade="episode.grade"></ViewGrade>
-        <div v-if="enableGrading && !currentGrade">
-          <select class="btn-black pl-3 pr-1" v-model="grade">
-            <option disabled value>Betygsätt</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </div>
-      </div>
+      <EpisodeActions
+        :episode="episode"
+        :key="episode.episode_id"
+      ></EpisodeActions>
     </div>
   </div>
 </template>
 
 <script>
 import storageCalls from "@/services/user_storage/StorageCalls.js"
-import ViewGrade from "@/components/ViewGrade.vue"
+import EpisodeActions from "@/components/EpisodeActions.vue"
 import {
   SAVE_EPISODE,
   REMOVE_EPISODE,
@@ -80,7 +61,7 @@ export default {
       default: false,
     },
   },
-  components: { ViewGrade },
+  components: { EpisodeActions },
   methods: {
     saveEpisode(grade = null) {
       console.log("modEp", this.episode)
