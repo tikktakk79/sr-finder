@@ -1,19 +1,20 @@
 <template>
   <div class="flex justify-center mt-2">
-    <button class="btn-black" v-if="!stored" @click="saveEpisode(null)">
-      Spara
-    </button>
-    <button
-      class="btn-black"
-      v-if="stored && gradeStored === null"
-      @click="removeEpisode"
-    >
-      Ta bort
-    </button>
-    <ViewGrade v-if="grade">{{ this.grade }}</ViewGrade>
-    <div v-else>
+    <ViewGrade v-if="grade && !editGrade" @grade-click="setEditGrade">{{
+      this.grade
+    }}</ViewGrade>
+
+    <div v-else class="flex justify-center">
+      <p
+        class="mini-screen font-bold bg-warmgray-500 px-1 text-white"
+        v-if="!this.gradeAction.length"
+      >
+        Ändra betyg:
+      </p>
       <select class="btn-black pl-3 pr-1" v-model="grade">
-        <option disabled value>{{ this.gradeAction }}</option>
+        <option v-if="this.gradeAction.length" disabled value>
+          {{ this.gradeAction }}
+        </option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -21,6 +22,16 @@
         <option value="5">5</option>
       </select>
     </div>
+    <button class="btn-black" v-if="!stored" @click="saveEpisode(null)">
+      Spara
+    </button>
+    <button
+      class="btn-black"
+      v-if="(stored && gradeStored === null) || editGrade"
+      @click="removeEpisode"
+    >
+      Ta bort
+    </button>
   </div>
 </template>
 
@@ -40,6 +51,7 @@ export default {
       gradeStored: "",
       stored: false,
       gradeAction: "Betygsätt",
+      editGrade: false,
     }
   },
   components: { ViewGrade },
@@ -61,6 +73,7 @@ export default {
 
   methods: {
     updateGrade: function () {
+      // console.log("Runs update grade")
       let currEp = this.episodes.filter(
         (ep) => ep.episode_id === this.episode.episode_id
       )
@@ -72,7 +85,9 @@ export default {
         this.gradeStored = epGrade
         this.grade = epGrade ?? ""
       } else {
+        // console.log("no length")
         this.stored = false
+        this.gradeStored = ""
       }
     },
     saveEpisode(grade = null) {
@@ -102,11 +117,20 @@ export default {
         .then(
           (resp) => {
             console.log("Remove episodes response", resp)
+            this.editGrade = false
+            this.grade = ""
           },
           (err) => {
             console.log("Eländes elände!", err)
           }
         )
+    },
+    setEditGrade() {
+      console.log("Setting editGrade")
+      if (this.grade) {
+        this.editGrade = true
+        this.gradeAction = ""
+      }
     },
   },
   watch: {
@@ -119,7 +143,7 @@ export default {
       val = parseInt(val)
       console.log("Betyg satt till:", val)
       let episode_id = parseInt(this.episode.episode_id)
-      if (!this.isStored) {
+      if (!this.stored) {
         console.log("Ej lagrat, så lagrar med betyg")
         this.saveEpisode(val)
         return
@@ -128,10 +152,25 @@ export default {
         (resp) => {
           console.log("Betyg tillades", resp)
           this.$store.dispatch(GET_EPISODES)
+          this.stored = true
         },
         (err) => console.log("Fel vid betygsättningen", err)
       )
+      this.editGrade = false
+    },
+    stored: function () {
+      if (!this.stored) {
+        this.grade = ""
+        this.gradeAction = "Betygsätt"
+      }
     },
   },
 }
 </script>
+<style scoped>
+@media screen and (max-width: 370px) {
+  .mini-screen {
+    display: none;
+  }
+}
+</style>

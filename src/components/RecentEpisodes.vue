@@ -20,10 +20,16 @@
         {{ episodes[0].program_name }} - senaste avsnitten
       </h1>
       <div class="flex justify-center">
-        <div v-if="!currentGrade">
+        <p
+          class="mini-screen font-bold bg-warmgray-500 px-1 text-white"
+          v-if="false"
+        >
+          Ändra betyg:
+        </p>
+        <div v-if="!currentGrade || updateGrade">
           <select class="btn-black pl-3 pr-1" v-model="programGrade">
-            <option disabled value>
-              Betygsätt {{ episodes[0].program_name }}
+            <option v-if="true" disabled value>
+              {{ this.gradeAction }}
             </option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -33,8 +39,11 @@
           </select>
         </div>
         <div v-else>
-          <p>Betyg: {{ currentGrade }}</p>
+          <ViewGrade @grade-click="setUpdate">{{ currentGrade }}</ViewGrade>
         </div>
+        <button class="btn-black" v-if="false" @click="removeEpisode">
+          Ta bort
+        </button>
       </div>
     </div>
 
@@ -59,8 +68,9 @@ import srCalls from "@/services/sr_api/ApiCalls.js"
 import ViewEpisode from "@/components/ViewEpisode.vue"
 import PageLink from "@/components/PageLink.vue"
 import ProgramName from "@/components/ProgramName.vue"
+import ViewGrade from "@/components/ViewGrade.vue"
 import storageCalls from "@/services/user_storage/StorageCalls.js"
-import { GRADE_PROGRAM } from "@/store/actions/user"
+import { GRADE_PROGRAM, UPDATE_PROGRAM } from "@/store/actions/user"
 export default {
   name: "RecentEpisodes",
   data() {
@@ -71,10 +81,12 @@ export default {
       nextPage: "",
       prevPage: "",
       programGrade: "",
-      gradedProgram: undefined,
+      updateGrade: false,
+      allowGradeUpdate: true,
+      gradeAction: "Betygsätt",
     }
   },
-  components: { ProgramName, ViewEpisode, PageLink },
+  components: { ProgramName, ViewEpisode, ViewGrade, PageLink },
   methods: {
     renderEpisodes(episodes, prevpage, nextpage) {
       console.log("EPS", episodes)
@@ -83,6 +95,7 @@ export default {
       this.nextPage = nextpage || ""
       console.log("GOT This far in renderEpisodes in RecentEpisodes")
       this.searchString = ""
+      this.updateGrade = false
     },
     changePage(episodeData) {
       console.log("Change page in recent episodes")
@@ -92,30 +105,51 @@ export default {
       this.nextPage = episodeData.nextPage || ""
     },
     gradeProgram(grade, programId, programName) {
-      if (grade) {
-        this.gradedProgram = { grade, programId, programName }
-      }
-      console.log("this.gradedProgram from gradeProgram()", this.gradedProgram)
-      this.$store
-        .dispatch(GRADE_PROGRAM, this.gradedProgram)
+      let gradedProgram = { grade, programId, programName }
+      if (grade && !this.currentGrade === "") {
+        console.log("this.gradedProgram from gradeProgram()", gradedProgram)
+        this.$store
+          .dispatch(GRADE_PROGRAM, gradedProgram)
 
-        .then(
-          (resp) => {
-            console.log("Save episodes response", resp)
-          },
-          (err) => {
-            console.log("Eländes elände!", err)
-          }
-        )
+          .then(
+            (resp) => {
+              console.log("Save program response", resp)
+            },
+            (err) => {
+              console.log("Eländes elände!", err)
+            }
+          )
+      }
+      if (grade && this.currentGrade !== grade) {
+        console.log("Running update program")
+        this.$store
+          .dispatch(UPDATE_PROGRAM, { programId, grade })
+
+          .then(
+            (resp) => {
+              console.log("Update program response", resp)
+              this.updateGrade = false
+            },
+            (err) => {
+              console.log("Eländes elände!", err)
+            }
+          )
+      }
+    },
+    setUpdate() {
+      this.updateGrade = true
     },
   },
   watch: {
-    programGrade() {
+    programGrade(oldVal, newVal) {
       this.gradeProgram(
         this.programGrade,
         this.currentProgram.id,
         this.currentProgram.name
       )
+    },
+    currentGrade() {
+      this.programGrade = this.currentGrade
     },
   },
 
@@ -154,23 +188,28 @@ export default {
     currentGrade() {
       console.log("programIds UPDATE!!")
       console.log("Running programIds")
-      if (this.storedPrograms.length) {
+      if (this.storedPrograms.length && this.currentProgram) {
         console.log("Stored progs from progIds", this.storedPrograms)
         console.log("currentProg", this.currentProgram.id)
         console.log("currentProg type", typeof this.currentProgram.id)
-        let storedProg = this.storedPrograms.filter(
-          (prog) => prog.programid === this.currentProgram.id
-        )
+
+        let storedProg = this.storedPrograms.filter((prog) => {
+          return parseInt(prog.programid) === parseInt(this.currentProgram.id)
+        })
         console.log("storedProg", storedProg)
-        return storedProg[0].betyg
+        if (storedProg.length) {
+          return storedProg[0].betyg
+        }
       }
-      return undefined
+      return ""
     },
   },
+
   created() {
     srCalls.getPrograms().then((resp) => {
       console.log("PROGRAM", resp.data)
       this.programs = resp.data.programs
+      console.log("CG in created", this.currentGrade)
     })
   },
 }

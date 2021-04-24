@@ -62,78 +62,7 @@ export default {
     },
   },
   components: { EpisodeActions },
-  methods: {
-    saveEpisode(grade = null) {
-      console.log("modEp", this.episode)
-      let modEpisode = this.episode
-      if (grade) {
-        console.log("Setting GRADE", grade)
-
-        modEpisode.grade = grade
-      }
-      this.$store
-        .dispatch(SAVE_EPISODE, modEpisode)
-
-        .then(
-          (resp) => {
-            console.log("Save episodes response", resp)
-          },
-          (err) => {
-            console.log("Eländes elände!", err)
-          }
-        )
-    },
-    removeEpisode() {
-      this.$store
-        .dispatch(REMOVE_EPISODE, this.episode.episode_id)
-
-        .then(
-          (resp) => {
-            console.log("Remove episodes response", resp)
-          },
-          (err) => {
-            console.log("Eländes elände!", err)
-          }
-        )
-    },
-  },
   computed: {
-    isStored: function () {
-      let stored = this.$store.state.user.episodes
-      let episodeIds = stored.map((ep) => ep.episode_id)
-      console.log("Typeof currEPId", typeof this.episode.episode_id)
-      console.log("Typeof epId[0]", typeof episodeIds[0])
-      let inStorage = episodeIds.includes(this.episode.episode_id)
-
-      console.log("This ep from isStored", this.episode)
-      console.log(
-        "$store.state.user.episodes isStored",
-        this.$store.state.user.episodes
-      )
-
-      return inStorage
-    },
-    currentGrade: function () {
-      let graded = false
-      let storedEpisodes = []
-
-      if (this.isStored) {
-        storedEpisodes = this.$store.state.user.episodes.filter(
-          (ep) => ep.episode_id === this.episode.episode_id
-        )
-      }
-
-      console.log("storedEps", storedEpisodes)
-
-      graded = !!(storedEpisodes.length > 0 && !!storedEpisodes[0].grade)
-
-      if (graded) {
-        console.log("This ep is graded!", storedEpisodes[0])
-        return storedEpisodes[0].grade
-      }
-
-      return undefined
-    },
     date: function () {
       let dateRaw = this.episode.pub_datum_utc
       let modDate = null
@@ -145,30 +74,6 @@ export default {
         modDate = date.toISOString().substring(0, 10)
       }
       return modDate
-    },
-  },
-  watch: {
-    grade: function (val) {
-      console.log("VAL for grade", val)
-      this.grade = val
-      val = parseInt(val)
-      console.log("Betyg satt till:", val)
-      let episode_id = parseInt(this.episode.episode_id)
-      if (!this.isStored) {
-        console.log("Ej lagrat, så lagrar med betyg")
-        this.saveEpisode(val)
-        return
-      }
-      storageCalls.setGrade(episode_id, val).then(
-        (resp) => {
-          console.log("Betyg tillades", resp)
-          this.$store.dispatch(GET_EPISODES)
-        },
-        (err) => console.log("Fel vid betygsättningen", err)
-      )
-    },
-    episode: function () {
-      this.grade = ""
     },
   },
 }

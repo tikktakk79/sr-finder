@@ -245,6 +245,24 @@ const storageCalls = {
         }
       )
   },
+  updateProgram(programId, grade) {
+    console.log("programData inside StorageCalls", programId, grade)
+    return storageApi
+      .post("/program/update", {
+        program_id: programId,
+        grade: grade,
+      })
+      .then(
+        (resp) => {
+          console.log("Programbetyg ändrat - hälsar StorageCalls", resp)
+          return resp
+        },
+        (err) => {
+          console.log("Sorry kunde ej ändra betyg för program", err)
+          throw err
+        }
+      )
+  },
 }
 
 export default storageCalls

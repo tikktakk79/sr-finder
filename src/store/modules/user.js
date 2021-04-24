@@ -8,6 +8,7 @@ import {
   GET_EPISODES,
   STORE_ONE_EPISODE,
   GRADE_PROGRAM,
+  UPDATE_PROGRAM,
   GET_FRIENDS,
   GET_PROGRAMS,
   REQ_FRIEND,
@@ -106,7 +107,7 @@ const actions = {
         console.log("De blev fel med remove", err)
       })
   },
-  [GRADE_PROGRAM]: ({ commit, dispatch }, program, grade) => {
+  [GRADE_PROGRAM]: ({ commit }, program) => {
     console.log("program object inside GRADE_PROGRAM", program)
     let programData = {
       id: program.programId,
@@ -115,15 +116,30 @@ const actions = {
     }
     let test = "TESTING"
     console.log("programData inside GRADE_PROGRAM action: ", programData)
-    storageCalls.gradeProgram(programData).then(
+    return storageCalls.gradeProgram(programData).then(
       (resp) => {
         console.log("printing test", test)
         console.log("Grade program response", resp)
 
         commit(GRADE_PROGRAM, programData)
+        return resp
       },
       (err) => {
         console.log("Fel vid storageCalls.gradeProgram!", { err })
+        throw err
+      }
+    )
+  },
+  [UPDATE_PROGRAM]: ({ commit, dispatch }, { programId, grade }) => {
+    console.log("Update program action:", programId, grade)
+    storageCalls.updateProgram(programId, grade).then(
+      (resp) => {
+        console.log("Update program response", resp)
+
+        dispatch(GET_PROGRAMS)
+      },
+      (err) => {
+        console.log("Fel vid storageCalls.updateProgram!", { err })
       }
     )
   },
