@@ -9,6 +9,7 @@ import {
   STORE_ONE_EPISODE,
   GRADE_PROGRAM,
   UPDATE_PROGRAM,
+  DELETE_PROGRAM,
   GET_FRIENDS,
   GET_PROGRAMS,
   REQ_FRIEND,
@@ -143,6 +144,19 @@ const actions = {
       }
     )
   },
+  [DELETE_PROGRAM]: ({ commit, dispatch }, programId) => {
+    console.log("Delete program action:", programId)
+    storageCalls.deleteProgram(programId).then(
+      (resp) => {
+        console.log("Delete program response", resp)
+
+        dispatch(GET_PROGRAMS)
+      },
+      (err) => {
+        console.log("Fel vid storageCalls.deleteProgram!", { err })
+      }
+    )
+  },
   [GET_PROGRAMS]: ({ commit }) => {
     storageCalls
       .getPrograms()
@@ -205,7 +219,11 @@ const mutations = {
   },
   [GRADE_PROGRAM]: (state, programData) => {
     console.log("State from grade program: ", state)
-    state.programs.push(programData)
+    state.programs.push({
+      programid: programData.id,
+      programnamn: programData.name,
+      betyg: programData.grade,
+    })
   },
   [GET_PROGRAMS]: (state, programs) => {
     state.changeTracker++

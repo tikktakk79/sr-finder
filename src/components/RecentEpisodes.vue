@@ -41,7 +41,11 @@
         <div v-else>
           <ViewGrade @grade-click="setUpdate">{{ currentGrade }}</ViewGrade>
         </div>
-        <button class="btn-black" v-if="false" @click="removeEpisode">
+        <button
+          class="btn-black"
+          v-if="updateGrade"
+          @click="removeGrade(currentProgram.id)"
+        >
           Ta bort
         </button>
       </div>
@@ -70,7 +74,11 @@ import PageLink from "@/components/PageLink.vue"
 import ProgramName from "@/components/ProgramName.vue"
 import ViewGrade from "@/components/ViewGrade.vue"
 import storageCalls from "@/services/user_storage/StorageCalls.js"
-import { GRADE_PROGRAM, UPDATE_PROGRAM } from "@/store/actions/user"
+import {
+  GRADE_PROGRAM,
+  UPDATE_PROGRAM,
+  DELETE_PROGRAM,
+} from "@/store/actions/user"
 export default {
   name: "RecentEpisodes",
   data() {
@@ -95,6 +103,7 @@ export default {
       this.nextPage = nextpage || ""
       console.log("GOT This far in renderEpisodes in RecentEpisodes")
       this.searchString = ""
+      this.programGrade = ""
       this.updateGrade = false
     },
     changePage(episodeData) {
@@ -106,7 +115,9 @@ export default {
     },
     gradeProgram(grade, programId, programName) {
       let gradedProgram = { grade, programId, programName }
-      if (grade && !this.currentGrade === "") {
+      console.log("programGrade from gradeProgram", this.programGrade)
+      console.log("currentGrade from gradeProgram", this.currentGrade)
+      if (grade && this.currentGrade === "") {
         console.log("this.gradedProgram from gradeProgram()", gradedProgram)
         this.$store
           .dispatch(GRADE_PROGRAM, gradedProgram)
@@ -119,8 +130,7 @@ export default {
               console.log("Eländes elände!", err)
             }
           )
-      }
-      if (grade && this.currentGrade !== grade) {
+      } else if (grade && this.currentGrade !== grade) {
         console.log("Running update program")
         this.$store
           .dispatch(UPDATE_PROGRAM, { programId, grade })
@@ -139,9 +149,25 @@ export default {
     setUpdate() {
       this.updateGrade = true
     },
+    removeGrade(programId) {
+      console.log("Running remove grade")
+      this.$store
+        .dispatch(DELETE_PROGRAM, programId)
+
+        .then(
+          (resp) => {
+            console.log("Delete program response", resp)
+            this.updateGrade = false
+          },
+          (err) => {
+            console.log("Eländes elände från deleteProgram!", err)
+          }
+        )
+    },
   },
   watch: {
     programGrade(oldVal, newVal) {
+      console.log("ProgramGrade changed")
       this.gradeProgram(
         this.programGrade,
         this.currentProgram.id,
@@ -190,7 +216,7 @@ export default {
       console.log("Running programIds")
       if (this.storedPrograms.length && this.currentProgram) {
         console.log("Stored progs from progIds", this.storedPrograms)
-        console.log("currentProg", this.currentProgram.id)
+        console.log("currentProg id", this.currentProgram.id)
         console.log("currentProg type", typeof this.currentProgram.id)
 
         let storedProg = this.storedPrograms.filter((prog) => {

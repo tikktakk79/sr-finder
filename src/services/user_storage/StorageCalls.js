@@ -263,6 +263,22 @@ const storageCalls = {
         }
       )
   },
+  deleteProgram(programId) {
+    return storageApi
+      .post("/program/delete", {
+        program_id: programId,
+      })
+      .then(
+        (resp) => {
+          console.log("Programbetyg borttaget - hälsar StorageCalls", resp)
+          return resp
+        },
+        (err) => {
+          console.log("Sorry kunde ej ta bort betyg för program", err)
+          throw err
+        }
+      )
+  },
 }
 
 export default storageCalls
