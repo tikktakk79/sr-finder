@@ -7,15 +7,24 @@
           {{ episode.program_name }}
         </p>
       </div>
-      <h2 class="text-center mb-2 mx-6 px-4">
-        {{ episode.title }}
-      </h2>
-      <p class="text-gray-900 px-2">{{ episode.description }}</p>
-      <p class="text-center text-sm pt-2">Publicerat: {{ date }}</p>
+
+      <div class="flex justify-center mb-2">
+        <Expand class="-mt-0.5 h-8 w-8" />
+        <h2 class="text-center mx-6 px-4" @click="expanded = !expanded">
+          {{ episode.title }}
+        </h2>
+      </div>
+      <p v-if="expanded" class="text-gray-900 px-2">
+        {{ episode.description }}
+      </p>
+      <p v-if="expanded" class="text-center text-sm pt-2">
+        Publicerat: {{ date }}
+      </p>
 
       <EpisodeActions
         :episode="episode"
         :key="episode.episode_id"
+        :expanded="expanded"
       ></EpisodeActions>
     </div>
   </div>
@@ -23,6 +32,8 @@
 
 <script>
 import storageCalls from "@/services/user_storage/StorageCalls.js"
+import Expand from "@/assets/img/svg/test9.svg"
+
 import EpisodeActions from "@/components/EpisodeActions.vue"
 import {
   SAVE_EPISODE,
@@ -33,6 +44,7 @@ export default {
   data() {
     return {
       grade: "",
+      expanded: false,
     }
   },
   props: {
@@ -61,7 +73,7 @@ export default {
       default: false,
     },
   },
-  components: { EpisodeActions },
+  components: { EpisodeActions, Expand },
   computed: {
     date: function () {
       let dateRaw = this.episode.pub_datum_utc

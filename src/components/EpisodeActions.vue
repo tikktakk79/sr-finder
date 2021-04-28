@@ -11,7 +11,11 @@
       >
         Ändra betyg:
       </p>
-      <select class="btn-black pl-3 pr-1" v-model="grade">
+      <select
+        v-if="expanded || editGrade"
+        class="btn-black pl-3 pr-1"
+        v-model="grade"
+      >
         <option v-if="this.gradeAction.length" disabled value>
           {{ this.gradeAction }}
         </option>
@@ -22,12 +26,16 @@
         <option value="5">5</option>
       </select>
     </div>
-    <button class="btn-black" v-if="!stored" @click="saveEpisode(null)">
+    <button
+      class="btn-black"
+      v-if="!stored && (expanded || editGrade)"
+      @click="saveEpisode(null)"
+    >
       Spara
     </button>
     <button
       class="btn-black"
-      v-if="(stored && gradeStored === null) || editGrade"
+      v-if="(expanded && stored && gradeStored === null) || editGrade"
       @click="removeEpisode"
     >
       Ta bort
@@ -61,6 +69,10 @@ export default {
   props: {
     episode: {
       type: Object,
+      required: true,
+    },
+    expanded: {
+      type: Boolean,
       required: true,
     },
   },
@@ -162,6 +174,11 @@ export default {
       if (!this.stored) {
         this.grade = ""
         this.gradeAction = "Betygsätt"
+      }
+    },
+    expanded: function (newVal) {
+      if (!newVal) {
+        this.editGrade = false
       }
     },
   },
