@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="border my-3 mx-36"></div>
+    <div class="border my-3 mx-32"></div>
     <div class="p-4 border-gray-200">
       <div class="flex justify-center">
         <p class="mb-2 bg-gray-600 text-white font-bold px-2">
@@ -9,15 +9,20 @@
       </div>
 
       <div class="flex justify-center mb-2">
-        <Expand class="-mt-0.5 h-8 w-8" />
-        <h2 class="text-center mx-6 px-4" @click="expanded = !expanded">
+        <div class="mt-0.5 h-6 w-6">
+          <Expand v-if="!expanded" @click="expanded = true" />
+          <Shrink v-if="expanded" @click="expanded = false" />
+        </div>
+        <h2 class="px-2 w-5/6 sm:w-3/5">
           {{ episode.title }}
         </h2>
       </div>
-      <p v-if="expanded" class="text-gray-900 px-2">
-        {{ episode.description }}
-      </p>
-      <p v-if="expanded" class="text-center text-sm pt-2">
+      <div class="flex justify-center">
+        <p v-if="expanded" class="sm:w-3/4 text-gray-900">
+          {{ episode.description }}
+        </p>
+      </div>
+      <p v-if="expanded" class="text-center text-sm pt-2 mb-4">
         Publicerat: {{ date }}
       </p>
 
@@ -32,7 +37,8 @@
 
 <script>
 import storageCalls from "@/services/user_storage/StorageCalls.js"
-import Expand from "@/assets/img/svg/test9.svg"
+import Expand from "@/assets/img/svg/expand.svg"
+import Shrink from "@/assets/img/svg/shrink.svg"
 
 import EpisodeActions from "@/components/EpisodeActions.vue"
 import {
@@ -73,7 +79,7 @@ export default {
       default: false,
     },
   },
-  components: { EpisodeActions, Expand },
+  components: { EpisodeActions, Expand, Shrink },
   computed: {
     date: function () {
       let dateRaw = this.episode.pub_datum_utc
