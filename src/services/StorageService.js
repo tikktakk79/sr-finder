@@ -39,13 +39,15 @@ storageApi.interceptors.response.use(
   },
   (err) => {
     console.log("Err from interceptor in App.vue", { err })
+    console.log("Error message", err.message)
     //console.log("Is this error name??", err.data.name)
     return new Promise(function (resolve, reject) {
       if (
-        (err.response.status === 401 &&
+        (err.response &&
+          err.response.status === 401 &&
           err.config &&
           !err.config.__isRetryRequest) ||
-        (err.hasOwnProperty("response") &&
+        (err.response &&
           err.response.hasOwnProperty("data") &&
           err.response.data.name === "JsonWebTokenError")
       ) {
@@ -55,6 +57,22 @@ storageApi.interceptors.response.use(
         store.dispatch("CLEAR_USERDATA")
         router.push("/login")
         // you can also redirect to /login if needed !
+      } else if (err.message === "Network Error") {
+        console.log("pushing error route")
+        router.push("/error").catch((err) => {
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (
+            err.name !== "NavigationDuplicated" &&
+            !err.message.includes(
+              "Avoided redundant navigation to current location"
+            )
+          ) {
+            // But print any other errors to the console
+            logError(err)
+          }
+        })
+      } else {
+        console.log("Unidentified error")
       }
       throw err
     })

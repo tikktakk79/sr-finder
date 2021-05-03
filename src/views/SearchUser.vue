@@ -10,28 +10,6 @@
           <td><input id="username" class="px-2 w-36" v-model="username" /></td>
           <td class="hidden sm:invisible sm:block">Användarnamn:x</td>
         </tr>
-        <tr>
-          <td align="right" class="py-2.5">
-            <label for="firstname">Förnamn:</label>
-          </td>
-          <td>
-            <input id="firstname" class="px-2 w-36" v-model="firstname" />
-          </td>
-        </tr>
-        <tr>
-          <td align="right" class="py-2.5">
-            <label for="lastname">Efternamn:</label>
-          </td>
-          <td><input id="lastname" class="px-2 w-36" v-model="lastname" /></td>
-        </tr>
-        <tr>
-          <td align="right" class="py-2.5">
-            <label for="email">Email:</label>
-          </td>
-          <td>
-            <input id="email" class="px-2 w-36" v-model="email" />
-          </td>
-        </tr>
       </table>
     </div>
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1 class="top-header">Sparade avsnitt</h1>
+    <div class="top-border"></div>
     <ViewEpisode
       v-for="episode in episodes"
       :episode="episode"

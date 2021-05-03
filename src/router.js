@@ -12,6 +12,7 @@ import Search from "./views/Search.vue"
 import SearchUser from "./views/SearchUser.vue"
 import Friends from "./views/Friends.vue"
 import Settings from "./views/Settings.vue"
+import Error from "./views/Error.vue"
 //import UserGrades from "./views/UserGrades.vue"
 import Store from "./store"
 import Helper from "@/helper/helper.js"
@@ -112,6 +113,11 @@ const router = new Router({
       name: "Search",
       component: Search,
       beforeEnter: ifAuthenticated,
+    },
+    {
+      path: "/error",
+      name: "Error",
+      component: Error,
     },
   ],
 })

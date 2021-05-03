@@ -82,7 +82,11 @@ a a:visited.page-nav {
 }
 
 .top-header {
-  @apply text-center mb-7;
+  @apply text-center mb-5;
+}
+
+.top-border {
+  @apply border border-warmgray-200 mb-7 mx-20;
 }
 
 .friends-table {
