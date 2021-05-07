@@ -17,7 +17,11 @@
       Sök
     </button>
 
-    <ListUsers :userList="userList" :friends="friends" class="pt-5"></ListUsers>
+    <ListUsers
+      :userList="searchHits"
+      :friends="friends"
+      class="pt-5"
+    ></ListUsers>
   </div>
 </template>
 
@@ -35,7 +39,7 @@ export default {
       firstname: "",
       lastname: "",
       email: "",
-      userList: [],
+      searchHits: [],
     }
   },
   components: {
@@ -53,10 +57,24 @@ export default {
         .then((resp) => {
           console.log("RESP", resp)
 
-          this.userList = resp
-          console.log("userlist", this.userList)
+          let searchResult = []
 
-          return resp
+          if (resp.length) {
+            searchResult = resp
+            let hitFriends = this.friends.filter(
+              (val) => val.username === searchResult[0].anvandarnamn
+            )
+
+            if (hitFriends.length) {
+              searchResult[0].friendStatus = hitFriends[0].godkann || "friend"
+            } else {
+              searchResult[0].friendStatus = "none"
+            }
+
+            this.searchHits = searchResult
+          } else {
+            this.searchHits = []
+          }
         })
     },
   },

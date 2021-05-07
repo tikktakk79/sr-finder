@@ -35,7 +35,7 @@ const ifAuthenticated = (to, from, next) => {
     console.log("Is authenticated from rotuer.js")
     if (to.name === "GradedEpisodes") {
       console.log("Fetching data inside ifAuth")
-      Helper.fetchData(Store)
+      Helper.fetchData(Store, Vue.alert)
     } else if (to.name === "Login") {
       console.log("Going to episodes route")
       next("/episodes")

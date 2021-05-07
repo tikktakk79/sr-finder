@@ -20,7 +20,7 @@ new Vue({
   router,
   store,
   created: function () {
-    helper.fetchData(store)
+    helper.fetchData(store, Vue.alert)
   },
   render: (h) => h(App),
 }).$mount("#app")

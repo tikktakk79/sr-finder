@@ -50,7 +50,7 @@ export default {
   computed: {
     gradedEpisodes() {
       console.log("graded episodes is recalculated")
-      let allEpisodes = this.$store.state.user.episodes
+      let allEpisodes = [...this.$store.state.user.episodes]
       console.log("All stored episodes", allEpisodes)
       let graded = allEpisodes.filter((ep) => ep.grade !== null)
       graded.sort((a, b) => (a.grade < b.grade ? 1 : -1))
@@ -58,7 +58,7 @@ export default {
       return graded
     },
     programs() {
-      let programs = this.$store.state.user.programs
+      let programs = [...this.$store.state.user.programs]
       console.log("programmen", programs)
       programs.sort((a, b) => (a.betyg < b.betyg ? 1 : -1))
       return programs

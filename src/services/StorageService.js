@@ -22,7 +22,18 @@ storageApi.interceptors.request.use(
       config.headers.common["x-access-token"] = token
     } else {
       console.log("No valid token")
-      router.push("login")
+      router.push("login").catch((err) => {
+        // Ignore the vuex err regarding  navigating to the page they are already on.
+        if (
+          err.name !== "NavigationDuplicated" &&
+          !err.message.includes(
+            "Avoided redundant navigation to current location"
+          )
+        ) {
+          // But print any other errors to the console
+          logError(err)
+        }
+      })
     }
     return config
   },
@@ -55,7 +66,18 @@ storageApi.interceptors.response.use(
         console.log("LOGGING OUT USER")
         store.dispatch("AUTH_LOGOUT")
         store.dispatch("CLEAR_USERDATA")
-        router.push("/login")
+        router.push("/login").catch((err) => {
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (
+            err.name !== "NavigationDuplicated" &&
+            !err.message.includes(
+              "Avoided redundant navigation to current location"
+            )
+          ) {
+            // But print any other errors to the console
+            logError(err)
+          }
+        })
         // you can also redirect to /login if needed !
       } else if (err.message === "Network Error") {
         console.log("pushing error route")

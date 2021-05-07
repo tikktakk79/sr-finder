@@ -1,4 +1,6 @@
 import { GET_EPISODES, GET_FRIENDS, GET_PROGRAMS } from "@/store/actions/user"
+import friendCalls from "@/services/user_storage/FriendCalls.js"
+import router from "@/router.js"
 
 const helper = {
   episodeFilter(rawArr) {
@@ -19,7 +21,7 @@ const helper = {
 
     return modEpisodes
   },
-  fetchData(store) {
+  fetchData(store, vueAlert) {
     {
       if (!store.getters.isAuthenticated) {
         return
@@ -41,7 +43,7 @@ const helper = {
             let relations = store.state.user.friends
             let usernames = relations.map((rel) => rel.username)
             let unhandled = relations.filter((rel) => {
-              if (rel.ny_fraga && !usernames.includes(rel.godkann)) {
+              if (rel.ny_fraga && rel.godkann === "you") {
                 return true
               }
             })
@@ -51,7 +53,7 @@ const helper = {
                 router.push("friends")
               }
 
-              this.$alert("Du har minst en ny vänförfrågan")
+              vueAlert("Du har minst en ny vänförfrågan")
               friendCalls.setOld().then((resp) => console.log("resp", resp)),
                 (err) => console.log("ERR", { err })
             }

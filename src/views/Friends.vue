@@ -19,7 +19,8 @@
           <button @click="deny(user.username)">Ignorera</button>
         </td>
         <td v-if="user.hemligt !== true">
-          <router-link :to="{ name: 'grades', params: { user: user.username } }"
+          <router-link
+            :to="{ name: 'GradedEpisodes', params: { user: user.username } }"
             >Betyg</router-link
           >
         </td>
@@ -99,7 +100,7 @@ export default {
     },
     reqUsers() {
       let users = this.relations.filter((rel) => {
-        return rel.godkann !== null && rel.godkann !== rel.username
+        return rel.godkann !== null && rel.godkann === "you"
       })
       console.log("users from reqUsers prop", users)
       console.log("reqUsers length", users.length)
