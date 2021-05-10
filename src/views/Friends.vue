@@ -2,46 +2,85 @@
   <div>
     <div>
       <h1 class="text-center">Vänsida</h1>
-      <div class="text-center mt-0.5">
+      <div class="text-center mt-1.5">
         <router-link class="btn" to="/user">Sök användare</router-link>
       </div>
     </div>
     <div class="pb-6 border-b-2 border-gray-300 mx-28 mb-6"></div>
 
-    <h2 v-if="reqUsers.length">Hantera vänförfrågningar</h2>
-    <table v-for="user in reqUsers" :key="user.anvandarnamn">
-      <tr>
-        <td>{{ user.username }}</td>
-        <td>{{ user.fornamn }}</td>
-        <td>{{ user.efternamn }}</td>
-        <td v-if="user.godkann !== null && !reqUsers.includes(user.godkann)">
-          <button @click="accept(user.username)">Godkänn</button>
-          <button @click="deny(user.username)">Ignorera</button>
-        </td>
-        <td v-if="user.hemligt !== true">
-          <router-link
-            :to="{ name: 'GradedEpisodes', params: { user: user.username } }"
-            >Betyg</router-link
-          >
-        </td>
-      </tr>
-    </table>
+    <h2 v-if="reqUsers.length" class="text-center">Hantera vänförfrågningar</h2>
+    <div v-if="reqUsers.length" class="mb-3 mt-3 flex justify-center">
+      <table class="hidden sm:block bg-gray-50 table-auto">
+        <tr
+          v-for="user in reqUsers"
+          :key="user.anvandarnamn"
+          class="border-2 border-r-0 border-l-0 bg-gray-50"
+        >
+          <td v-if="user.hemligt">
+            <h2 class="text-center pl-3">{{ user.username }}</h2>
+          </td>
+          <td v-if="!user.hemligt" class="pl-3 pr-3">
+            <router-link
+              :to="{ name: 'UserPage', params: { user: user.username } }"
+              ><h2>{{ user.username }}</h2></router-link
+            >
+          </td>
+          <td class="px-1.5 py-4 pr-3" v-if="friendButton(user)">
+            <button class="btn-black mx-auto" @click="accept(user.username)">
+              Godkänn
+            </button>
+          </td>
+          <td>
+            <button class="btn-black mx-auto mr-3" @click="deny(user.username)">
+              Ignorera
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div
+      class="block sm:hidden pt-1 mb-1 border-2 border-r-0 border-l-0 bg-gray-50"
+      v-for="user in reqUsers"
+      :key="user.anvandarnamn"
+    >
+      <div v-if="user.hemligt">
+        <h2 class="flex justify-center pl-3">{{ user.username }}</h2>
+      </div>
+      <div v-if="!user.hemligt" class="flex justify-center pl-3 pr-3">
+        <router-link :to="{ name: 'UserPage', params: { user: user.username } }"
+          ><h2>{{ user.username }}</h2></router-link
+        >
+      </div>
+      <div
+        class="flex justify-center px-1.5 pt-2 pb-3 pr-3"
+        v-if="friendButton(user)"
+      >
+        <button class="inline-block btn-black" @click="accept(user.username)">
+          Godkänn
+        </button>
+
+        <button class="inline-block btn-black" @click="deny(user.username)">
+          Ignorera
+        </button>
+      </div>
+    </div>
 
     <div v-if="friends.length">
-      <h2 class="text-center">Vänner</h2>
-      <div class="mb-3 flex justify-center">
-        <table class="friends-table">
-          <tr v-for="user in friends" :key="user.anvandarnamn">
-            <td class="text-right">{{ user.username }}</td>
-            <td>
-              <router-link
-                :to="{ name: 'UserGrades', params: { user: user.username } }"
-                >Betyg</router-link
-              >
-            </td>
-            <td><button @click="remove(user.username)">Ta bort</button></td>
-          </tr>
-        </table>
+      <h2 class="text-center mb-1 mt-8">Vänner</h2>
+      <div
+        class="mb-2 flex justify-center"
+        v-for="user in friends"
+        :key="user.anvandarnamn"
+      >
+        <div class="mt-1">
+          <router-link
+            :to="{
+              name: 'UserPage',
+              params: { user: user.username, friendStatus: true },
+            }"
+            ><h2>{{ user.username }}</h2></router-link
+          >
+        </div>
       </div>
     </div>
 
@@ -49,7 +88,7 @@
       Väntar på godkännande
     </h2>
     <div class="mb-3 flex justify-center">
-      <table>
+      <table class="mt-5">
         <tr class="pb-1" v-for="user in waiting" :key="user.anvandarnamn">
           <td>{{ user.username }}</td>
           <td>{{ user.fornamn }}</td>
@@ -81,13 +120,12 @@ export default {
       }),
         (err) => console.log("Could not delete friend", { err })
     },
-    remove(username) {
-      this.$confirm("Är du säker på att du vill ta bort denna vän?").then(
-        () => this.deny(username),
-        () => {
-          console.log("NOOOOOT DELEETING")
-        }
-      )
+
+    friendButton(user) {
+      if (user.godkann !== null && !this.reqUsers.includes(user.godkann)) {
+        return true
+      }
+      return false
     },
   },
   computed: {

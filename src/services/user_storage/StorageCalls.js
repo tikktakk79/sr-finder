@@ -127,25 +127,26 @@ const storageCalls = {
       }
     )
   },
-  userEpisodes(user) {
+  getUserEpisodes(username) {
     console.log("From storage calls: GETTING EPISODES")
     console.log("the token is:", localStorage.getItem("user-token"))
-    console.log("User from userEpisodes in storagecalls", user)
     return storageApi
-      .post("/episode/external", {
-        username: user,
+      .post("/friend/episode", {
+        username: username,
       })
       .then(
         (response) => {
-          console.log("RESPONSE", response.data)
+          console.log("RESPONSE", response)
           return response.data
         },
         (error) => {
+          console.log("ERR in storage calls get episodes")
           console.log("ERROR", error)
           throw error
         }
       )
   },
+
   saveEpisode(
     id,
     title = null,
@@ -225,6 +226,25 @@ const storageCalls = {
         throw error
       }
     )
+  },
+  getUserPrograms(username) {
+    console.log("From storage calls: GETTING PROGRAMS")
+    console.log("the token is:", localStorage.getItem("user-token"))
+    return storageApi
+      .post("/friend/program", {
+        username: username,
+      })
+      .then(
+        (response) => {
+          console.log("RESPONSE from getPrograms", response)
+          return response.data
+        },
+        (error) => {
+          console.log("ERR in storage calls get programs")
+          console.log("ERROR", error)
+          throw error
+        }
+      )
   },
   gradeProgram(programData) {
     console.log("programData inside StorageCalls", programData)

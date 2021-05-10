@@ -7,13 +7,12 @@ import Register from "./views/Register.vue"
 import Login from "./views/Login.vue"
 import StoredEpisodes from "./views/StoredEpisodes.vue"
 import GradedEpisodes from "./views/GradedEpisodes.vue"
-import Testing from "./views/Testing.vue"
 import Search from "./views/Search.vue"
 import SearchUser from "./views/SearchUser.vue"
 import Friends from "./views/Friends.vue"
 import Settings from "./views/Settings.vue"
 import Error from "./views/Error.vue"
-//import UserGrades from "./views/UserGrades.vue"
+import UserPage from "./views/UserPage.vue"
 import Store from "./store"
 import Helper from "@/helper/helper.js"
 
@@ -92,6 +91,13 @@ const router = new Router({
       beforeEnter: ifAuthenticated,
     },
     {
+      path: "/userpage",
+      name: "UserPage",
+      component: UserPage,
+      props: true,
+      beforeEnter: ifAuthenticated,
+    },
+    {
       path: "/friends",
       name: "Friends",
       component: Friends,
@@ -102,11 +108,6 @@ const router = new Router({
       name: "Settings",
       component: Settings,
       beforeEnter: ifAuthenticated,
-    },
-    {
-      path: "/testing",
-      name: "Testing",
-      component: Testing,
     },
     {
       path: "/search",

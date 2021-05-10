@@ -28,6 +28,8 @@
       :episode="episode"
       :key="episode.episode_id"
       :expanded="expanded"
+      :grade="episode.grade"
+      :enableGrading="enableGrading"
     ></EpisodeActions>
     <div class="border mt-3 mb-4 mx-32"></div>
   </div>
@@ -79,7 +81,12 @@ export default {
     enableGrading: {
       type: Boolean,
       required: false,
-      default: false,
+      default: true,
+    },
+    gradeExt: {
+      type: Number,
+      required: false,
+      default: null,
     },
   },
   components: { EpisodeActions, Expand, Shrink },

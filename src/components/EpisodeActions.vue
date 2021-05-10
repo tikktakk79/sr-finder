@@ -1,6 +1,7 @@
 <template>
   <div class="flex justify-center mt-2">
-    <ViewGrade v-if="grade && !editGrade" @grade-click="setEditGrade">{{
+    <ViewGrade v-if="!enableGrading">{{ this.episode.grade }}</ViewGrade>
+    <ViewGrade v-else-if="grade && !editGrade" @grade-click="setEditGrade">{{
       this.grade
     }}</ViewGrade>
 
@@ -74,6 +75,11 @@ export default {
     expanded: {
       type: Boolean,
       required: true,
+    },
+    enableGrading: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   computed: {
