@@ -8,7 +8,7 @@
       </p>
     </div>
     <div class="flex justify-center">
-      <div
+      <!-- <div
         class="border-gray-400 border-2 border-separate px-3 my-3 pt-1.5 pb-3 mx-auto input-register"
       >
         <h3 class="mb-1.5 mt-1">Ändra användaruppgifter</h3>
@@ -43,7 +43,7 @@
             Ändra uppgifter
           </button>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="flex justify-center">
       <div

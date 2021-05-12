@@ -20,7 +20,7 @@ Vue.use(Router)
 
 const ifNotAuthenticated = (to, from, next) => {
   console.log("Authenticated?", Store.getters.isAuthenticated)
-  if (!Store.getters.isAuthenticated) {
+  if (isAuthenticated) {
     next()
   } else {
     next("/grades")
@@ -29,6 +29,7 @@ const ifNotAuthenticated = (to, from, next) => {
 
 const ifAuthenticated = (to, from, next) => {
   if (Store.getters.isAuthenticated) {
+    console.log("Store", Store)
     console.log("Token is", Store.state.token)
     console.log("value from isAUTH", Store.getters.isAuthenticated)
     console.log("Is authenticated from rotuer.js")

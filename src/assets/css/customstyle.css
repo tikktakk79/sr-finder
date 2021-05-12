@@ -93,3 +93,7 @@ a a:visited.page-nav {
   border-collapse: separate;
   border-spacing: 0.3em 0.4em;
 }
+
+.menu-items {
+  @apply block text-warmgray-200 mt-4 mdplus:bg-warmgray-200 mdplus:text-black px-2 lg:mt-0 mdplus:hover:bg-warmgray-50 mx-1.5;
+}

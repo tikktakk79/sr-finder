@@ -249,7 +249,9 @@ const mutations = {
     state.gotFriends = true
   },
   [CLEAR_USERDATA]: (state, friends) => {
-    state = {}
+    for (const prop of Object.getOwnPropertyNames(state)) {
+      delete state[prop]
+    }
   },
 }
 

@@ -3,6 +3,21 @@ a {
   text-decoration: none;
 }
 
+.gradient-text {
+  background-color: rgb(198, 195, 188);
+  background-image: linear-gradient(0deg, #535347, #ffffff);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+.vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
 #hamburger:hover {
   cursor: pointer;
   color: white;
@@ -15,6 +30,14 @@ a {
 <template>
   <div>
     <div class="bg-black">
+      <div
+        @click="logout"
+        class="hidden mdplus:block cursor-pointer px-1.5 absolute top-0 right-0"
+      >
+        <p class="text-right gradient-text font-bold text-sm text-warmgray-400">
+          logga ut
+        </p>
+      </div>
       <nav
         class="flex mdplus:grid grid-cols-topmenu items-center justify-between flex-wrap mx-auto pt-3 py-4 pb-3 sm:p-4"
       >
@@ -52,10 +75,17 @@ a {
             <router-link
               v-for="item in menuItems"
               :key="item.name"
-              class="block text-warmgray-200 mt-4 mdplus:inline-block mdplus:bg-warmgray-200 mdplus:text-black px-2 lg:mt-0 mdplus:hover:bg-warmgray-50 mx-1.5"
+              class="mdplus:inline-block menu-items"
               :to="item.link"
               ><div class="inline-block">{{ item.name }}</div></router-link
             >
+            <div
+              @click="logout"
+              class="mdplus:hidden menu-items"
+              to="/episodes"
+            >
+              <div class="inline-block">{{ "Logga ut" }}</div>
+            </div>
           </div>
         </div>
       </nav>
@@ -65,6 +95,7 @@ a {
 </template>
 
 <script>
+import { AUTH_LOGOUT } from "@/store/actions/auth"
 import srCalls from "@/services/sr_api/ApiCalls.js"
 export default {
   data() {
@@ -86,6 +117,10 @@ export default {
           name: "Vänner",
           link: "/friends",
         },
+        {
+          name: "Inställningar",
+          link: "/settings",
+        },
       ],
     }
   },
@@ -94,6 +129,13 @@ export default {
       type: String,
       required: true,
       default: () => "",
+    },
+  },
+  methods: {
+    logout() {
+      console.log("logout method in NavBar")
+      this.$store.dispatch(AUTH_LOGOUT)
+      this.$router.push("/login")
     },
   },
 }

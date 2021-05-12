@@ -5,8 +5,8 @@ import {
   AUTH_SUCCESS,
   AUTH_LOGOUT,
 } from "../actions/auth"
-import { USER_REQUEST } from "../actions/user"
-import { state as userState } from "./user"
+
+import { CLEAR_USERDATA } from "../actions/user"
 import storageCalls from "@/services/user_storage/StorageCalls.js"
 
 // import apiCall from "utils/api"
@@ -19,9 +19,14 @@ const state = {
 
 const getters = {
   isAuthenticated: (state) => {
-    console.log("Value of token is", state.token)
-    console.log("Returning: ", !!state.token)
-    return !!state.token
+    console.log("state from isAuth", state)
+    if (state.hasOwnProperty("token") && !!state.token.length) {
+      console.log("Is autheticated dumb mf")
+    } else {
+      console.log("Is NOT authenticated")
+    }
+
+    return state.hasOwnProperty("token") && !!state.token.length
   },
   authStatus: (state) => state.status,
 }
@@ -51,11 +56,11 @@ const actions = {
   },
   [AUTH_LOGOUT]: ({ commit, dispatch }) => {
     console.log("LOGGIN OUT IN ACTION")
-    return new Promise((resolve, reject) => {
-      commit(AUTH_LOGOUT)
-      localStorage.removeItem("user-token")
-      resolve()
-    })
+    console.log("STATE!!!", state)
+
+    commit(CLEAR_USERDATA)
+    commit(AUTH_LOGOUT, state)
+    localStorage.removeItem("user-token")
   },
 }
 
@@ -73,7 +78,10 @@ const mutations = {
     state.hasLoadedOnce = true
   },
   [AUTH_LOGOUT]: (state) => {
-    ;(state.profile = {}), (state.token = ""), (userState = {})
+    state.token = ""
+    for (const prop of Object.getOwnPropertyNames(state)) {
+      delete state[prop]
+    }
   },
 }
 
