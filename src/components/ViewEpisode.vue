@@ -23,7 +23,11 @@
     <p v-if="expanded" class="text-center text-sm pt-2 mb-4">
       Publicerat: {{ date }}
     </p>
-
+    <div class="text-center">
+      <audio v-if="expanded" class="mx-auto" preload="auto" controls="controls">
+        <source :src="episode.listen_link" />
+      </audio>
+    </div>
     <EpisodeActions
       :episode="episode"
       :key="episode.episode_id"
@@ -89,7 +93,11 @@ export default {
       default: null,
     },
   },
-  components: { EpisodeActions, Expand, Shrink },
+  components: {
+    EpisodeActions,
+    Expand,
+    Shrink,
+  },
   computed: {
     date: function () {
       let dateRaw = this.episode.pub_datum_utc

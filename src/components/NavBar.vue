@@ -31,6 +31,7 @@ a {
   <div>
     <div class="bg-black">
       <div
+        v-if="loggedIn"
         @click="logout"
         class="hidden mdplus:block cursor-pointer px-1.5 absolute top-0 right-0"
       >
@@ -38,6 +39,15 @@ a {
           logga ut
         </p>
       </div>
+      <router-link
+        v-if="!loggedIn && !routeLogin"
+        to="/login"
+        class="hidden mdplus:block cursor-pointer px-1.5 absolute top-0 right-0"
+      >
+        <p class="text-right gradient-text font-bold text-sm text-warmgray-400">
+          logga in
+        </p>
+      </router-link>
       <nav
         class="flex mdplus:grid grid-cols-topmenu items-center justify-between flex-wrap mx-auto pt-3 py-4 pb-3 sm:p-4"
       >
@@ -80,12 +90,20 @@ a {
               ><div class="inline-block">{{ item.name }}</div></router-link
             >
             <div
+              v-if="loggedIn"
               @click="logout"
               class="mdplus:hidden menu-items"
-              to="/episodes"
             >
               <div class="inline-block">{{ "Logga ut" }}</div>
             </div>
+
+            <router-link
+              v-if="!loggedIn && !routeLogin"
+              class="mdplus:hidden menu-items"
+              to="/login"
+            >
+              <div class="inline-block">{{ "Logga in" }}</div>
+            </router-link>
           </div>
         </div>
       </nav>
@@ -136,6 +154,15 @@ export default {
       console.log("logout method in NavBar")
       this.$store.dispatch(AUTH_LOGOUT)
       this.$router.push("/login")
+    },
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.isAuthenticated
+    },
+
+    routeLogin() {
+      return this.$route.name === "Login"
     },
   },
 }

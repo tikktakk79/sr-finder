@@ -19,14 +19,15 @@ const state = {
 
 const getters = {
   isAuthenticated: (state) => {
-    console.log("state from isAuth", state)
-    if (state.hasOwnProperty("token") && !!state.token.length) {
+    console.log(state.token)
+    let myToken = state.token
+    if (state.hasOwnProperty("token") && !!myToken.length) {
       console.log("Is autheticated dumb mf")
     } else {
       console.log("Is NOT authenticated")
     }
 
-    return state.hasOwnProperty("token") && !!state.token.length
+    return state.hasOwnProperty("token") && !!myToken.length
   },
   authStatus: (state) => state.status,
 }
@@ -79,9 +80,9 @@ const mutations = {
   },
   [AUTH_LOGOUT]: (state) => {
     state.token = ""
-    for (const prop of Object.getOwnPropertyNames(state)) {
-      delete state[prop]
-    }
+    // for (const prop of Object.getOwnPropertyNames(state)) {
+    //   delete state[prop]
+    // }
   },
 }
 

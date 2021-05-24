@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <h3 class="text-center italic">Ingen kontakt fås med servern.</h3>
+  <div class="text-center">
+    <h3 class="mx-auto text-left w-96 italic">{{ message }}</h3>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: ["message"],
+}
 </script>
 
 <style lang="stylus" scoped></style>

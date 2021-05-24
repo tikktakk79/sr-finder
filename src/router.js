@@ -13,6 +13,7 @@ import Friends from "./views/Friends.vue"
 import Settings from "./views/Settings.vue"
 import Error from "./views/Error.vue"
 import UserPage from "./views/UserPage.vue"
+import Verify from "./views/Verify.vue"
 import Store from "./store"
 import Helper from "@/helper/helper.js"
 
@@ -74,6 +75,11 @@ const router = new Router({
       component: Register,
     },
     {
+      path: "/verify",
+      name: "Verify",
+      component: Verify,
+    },
+    {
       path: "/episodes",
       name: "StoredEpisodes",
       component: StoredEpisodes,
@@ -120,6 +126,7 @@ const router = new Router({
       path: "/error",
       name: "Error",
       component: Error,
+      props: true,
     },
   ],
 })

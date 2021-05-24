@@ -21,15 +21,21 @@ import storageCalls from "@/services/user_storage/StorageCalls.js"
 import friendCalls from "@/services/user_storage/FriendCalls.js"
 import helper from "@/helper/helper.js"
 
-const state = {
-  status: "",
-  friends: [],
-  episodes: [],
-  programs: [],
-  changeTracker: 0,
-  gotEpisodes: false,
-  gotFriends: false,
-  gotPrograms: false,
+const state = {}
+
+baseState()
+
+function baseState() {
+  Object.assign(state, {
+    status: "",
+    friends: [],
+    episodes: [],
+    programs: [],
+    changeTracker: 0,
+    gotEpisodes: false,
+    gotFriends: false,
+    gotPrograms: false,
+  })
 }
 
 const getters = {
@@ -48,7 +54,7 @@ const actions = {
       .then((resp) => {
         commit(USER_SUCCESS, resp)
       })
-      .catch((resp) => {
+      .catch((err) => {
         commit(USER_ERROR)
         // if resp is unauthorized, logout, to
         dispatch(AUTH_LOGOUT)
@@ -64,6 +70,7 @@ const actions = {
         episode.description,
         episode.url,
         episode.pub_datum_utc,
+        episode.listen_link,
         episode.grade
       )
       .then(
@@ -249,9 +256,8 @@ const mutations = {
     state.gotFriends = true
   },
   [CLEAR_USERDATA]: (state, friends) => {
-    for (const prop of Object.getOwnPropertyNames(state)) {
-      delete state[prop]
-    }
+    console.log("Clearing Userdata")
+    baseState()
   },
 }
 

@@ -1,4 +1,5 @@
 import storageApi from "@/services/StorageService.js"
+import router from "../../router"
 
 const storageCalls = {
   loginUser(username, password) {
@@ -16,6 +17,22 @@ const storageCalls = {
         (error) => {
           console.log("De bidde fel")
           console.log(error)
+          let errorStatus = error.response.statusText
+          let errorMessage = ""
+
+          if (errorStatus === "No match for user in database") {
+            errorMessage =
+              "Ingen användare finns registrerad med det användarnamnet"
+          } else if (errorStatus === "User not verified") {
+            errorMessage =
+              "Användaren är ännu inte aktiverad. Du ska ha fått en länk för aktivering till din mail."
+          } else if (errorStatus === "Current password does not match") {
+            errorMessage = "Du har angivit ett felaktigt lösenord"
+          }
+          router.push({
+            name: "Error",
+            params: { message: errorMessage },
+          })
           throw error
         }
       )
@@ -155,6 +172,7 @@ const storageCalls = {
     description,
     url = null,
     pub_date = null,
+    listen_link = null,
     grade = null
   ) {
     return storageApi
@@ -165,6 +183,7 @@ const storageCalls = {
         show_id,
         description,
         url,
+        listen_link,
         pub_date,
         grade,
       })

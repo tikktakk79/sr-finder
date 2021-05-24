@@ -9,7 +9,7 @@
     </div>
     <div class="flex justify-center">
       <!-- <div
-        class="border-gray-400 border-2 border-separate px-3 my-3 pt-1.5 pb-3 mx-auto input-register"
+        class="border-gray-400 border-2 border-separate px-3 my-3 pt-1.5 pb-3 mx-auto input-userdata"
       >
         <h3 class="mb-1.5 mt-1">Ändra användaruppgifter</h3>
         <table v-if="gotData">
@@ -47,7 +47,7 @@
     </div>
     <div class="flex justify-center">
       <div
-        class="border-gray-400 border-2 border-separate px-3 my-5 pt-1.5 pb-3 mx-auto input-register"
+        class="border-gray-400 border-2 border-separate px-3 my-5 pt-1.5 pb-3 mx-auto input-userdata"
       >
         <h3 class="mb-1.5 mt-1">Byta lösenord</h3>
         <div class="flex text-green-600 justify-center">

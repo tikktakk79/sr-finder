@@ -1,18 +1,39 @@
 <template>
   <div>
-    <form class="login" @submit.prevent="login">
-      <h1>Sign in</h1>
-      <label>User name</label>
-      <input required v-model="username" type="text" placeholder="Snoopy" />
-      <label>Password</label>
-      <input
-        required
-        v-model="password"
-        type="password"
-        placeholder="Password"
-      />
-      <hr />
-      <button type="submit">Login</button>
+    <form @submit.prevent="login">
+      <h1 class="text-center">Logga in</h1>
+
+      <table class="mx-auto input-userdata mt-3">
+        <tr>
+          <td align="right" class="py-2.5">
+            <label for="username">Användarnamn:</label>
+          </td>
+          <td align="left">
+            <input class="w-28" required v-model="username" type="text" />
+          </td>
+        </tr>
+
+        <tr>
+          <td align="right" class="py-2.5">
+            <label for="password">Lösenord:</label>
+          </td>
+          <td align="left">
+            <input
+              required
+              v-model="password"
+              type="password"
+              autocomplete="on"
+              class="w-28"
+            />
+          </td>
+        </tr>
+      </table>
+      <button @login="login" type="submit" class="btn-black mx-auto mt-3">
+        Logga in
+      </button>
+      <router-link class="mt-6 flex justify-center" to="/register"
+        >Registrera ny användare</router-link
+      >
     </form>
   </div>
 </template>

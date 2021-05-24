@@ -14,6 +14,7 @@ const helper = {
         program_id: episode.program_id,
         program_name: episode.program_namn,
         url: episode.url,
+        listenlink: episode.lyssningslank,
         pub_datum_utc: episode.pub_datum_utc,
         grade: episode.betyg,
       })

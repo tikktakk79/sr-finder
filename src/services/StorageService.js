@@ -20,7 +20,7 @@ storageApi.interceptors.request.use(
     console.log("adding token", token)
     if (token) {
       config.headers.common["x-access-token"] = token
-    } else {
+    } else if (router.currentRoute.name !== "Register") {
       console.log("No valid token")
       router.push("login").catch((err) => {
         // Ignore the vuex err regarding  navigating to the page they are already on.
@@ -81,18 +81,23 @@ storageApi.interceptors.response.use(
         // you can also redirect to /login if needed !
       } else if (err.message === "Network Error") {
         console.log("pushing error route")
-        router.push("/error").catch((err) => {
-          // Ignore the vuex err regarding  navigating to the page they are already on.
-          if (
-            err.name !== "NavigationDuplicated" &&
-            !err.message.includes(
-              "Avoided redundant navigation to current location"
-            )
-          ) {
-            // But print any other errors to the console
-            logError(err)
-          }
-        })
+        router
+          .push({
+            name: "Error",
+            params: { message: "Ingen kontakt fås med servern." },
+          })
+          .catch((err) => {
+            // Ignore the vuex err regarding  navigating to the page they are already on.
+            if (
+              err.name !== "NavigationDuplicated" &&
+              !err.message.includes(
+                "Avoided redundant navigation to current location"
+              )
+            ) {
+              // But print any other errors to the console
+              logError(err)
+            }
+          })
       } else {
         console.log("Unidentified error")
       }

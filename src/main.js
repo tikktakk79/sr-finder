@@ -1,7 +1,8 @@
 import Vue from "vue"
 import router from "./router"
-import App from "./App.vue"
 import store from "./store"
+import App from "./App.vue"
+
 import VueSimpleAlert from "vue-simple-alert"
 import ToggleButton from "vue-js-toggle-button"
 import "@/assets/css/tailwind.css"

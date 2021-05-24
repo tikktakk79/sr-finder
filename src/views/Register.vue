@@ -2,7 +2,7 @@
   <div>
     <form class="login text-center" @submit.prevent="register">
       <h1>Skapa ny användare</h1>
-      <table class="mx-auto input-register mt-3">
+      <table class="mx-auto input-userdata mt-3">
         <tr>
           <td align="right" class="py-2.5">
             <label for="username">Användarnamn:</label>
@@ -12,7 +12,6 @@
               required
               v-model="username"
               type="text"
-              placeholder="Snoopy"
               :class="{ 'border-red-400': badUsername }"
             /><span class="pl-1">*</span>
           </td>
@@ -27,7 +26,7 @@
               required
               v-model="password"
               type="password"
-              placeholder="Password"
+              autocomplete="off"
               :class="{ 'border-red-400': badPassword }"
             />
             <span class="pl-1">*</span>
@@ -35,26 +34,11 @@
         </tr>
         <tr>
           <td align="right" class="py-2.5">
-            <label for="firstname">Förnamn</label>
-          </td>
-          <td align="left">
-            <input v-model="firstname" type="text" placeholder="Förnamn" />
-          </td>
-        </tr>
-        <tr>
-          <td align="right" class="py-2.5">
-            <label for="lastname">Efternamn</label>
-          </td>
-          <td align="left">
-            <input v-model="lastname" type="text" placeholder="Efternamn" />
-          </td>
-        </tr>
-        <tr>
-          <td align="right" class="py-2.5">
             <label for="email">Email</label>
           </td>
           <td align="left">
-            <input v-model="email" type="text" placeholder="Email" />
+            <input v-model="email" type="text" />
+            <span class="pl-1">*</span>
           </td>
         </tr>
       </table>
@@ -119,12 +103,11 @@ export default {
             console.log("Det gick vägen!")
             localStorage.clear()
             console.log(response)
-            this.$router.push("/login")
+            this.$router.push("/verify")
           },
           (error) => {
             console.log("Tyvärr, funkante!")
-            console.log(error.response.data)
-            this.error = error.response.data.message
+            console.log(error)
           }
         )
     },

@@ -89,6 +89,7 @@ export default {
     }),
     episodes: function () {
       let modEpisodes = this.rawEpisodes.map((rawEp) => {
+        console.log("BROADCAST", rawEp.broadcast, rawEp.title)
         let mod = {
           episode_id: rawEp.id,
           title: rawEp.title,
@@ -97,6 +98,11 @@ export default {
           program_name: rawEp.program.name,
           program_id: rawEp.program.id,
           pub_datum_utc: rawEp.publishdateutc,
+          listen_link: !!rawEp.broadcast
+            ? rawEp.broadcast.broadcastfiles[0].url
+            : !!rawEp.listenpodfile
+            ? rawEp.listenpodfile.url
+            : null,
           grade: null,
         }
         return mod

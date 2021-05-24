@@ -23,7 +23,7 @@ button:focus {
   @apply border rounded-xl ml-1;
 }
 
-.input-register input {
+.input-userdata input {
   @apply border ml-1;
 }
 
