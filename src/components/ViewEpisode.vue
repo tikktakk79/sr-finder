@@ -20,14 +20,21 @@
         {{ episode.description }}
       </p>
     </div>
+    <div class="flex justify-center items-center">
+      <div v-if="expanded" class="mt-3 mb-2">
+        <figure class="play">
+          <button @click="setPlay" name="play"></button>
+        </figure>
+      </div>
+
+      <a v-if="expanded" class="ml-2" :href="episode.url" target="_blank"
+        >SR-sida</a
+      >
+    </div>
     <p v-if="expanded" class="text-center text-sm pt-2 mb-4">
       Publicerat: {{ date }}
     </p>
-    <div class="text-center">
-      <audio v-if="expanded" class="mx-auto" preload="auto" controls="controls">
-        <source :src="episode.listen_link" />
-      </audio>
-    </div>
+
     <EpisodeActions
       :episode="episode"
       :key="episode.episode_id"
@@ -35,6 +42,7 @@
       :grade="episode.grade"
       :enableGrading="enableGrading"
     ></EpisodeActions>
+    <div v.if="expanded" class="p-1"></div>
     <div class="border mt-3 mb-4 mx-32"></div>
   </div>
 </template>
@@ -45,11 +53,7 @@ import Expand from "@/assets/img/svg/expand.svg"
 import Shrink from "@/assets/img/svg/shrink.svg"
 
 import EpisodeActions from "@/components/EpisodeActions.vue"
-import {
-  SAVE_EPISODE,
-  REMOVE_EPISODE,
-  GET_EPISODES,
-} from "@/store/actions/user"
+import { GET_EPISODES, SET_PLAY } from "@/store/actions/user"
 export default {
   data() {
     return {
@@ -98,6 +102,11 @@ export default {
     Expand,
     Shrink,
   },
+  methods: {
+    setPlay() {
+      this.$store.dispatch(SET_PLAY, this.episode.listen_link)
+    },
+  },
   computed: {
     date: function () {
       let dateRaw = this.episode.pub_datum_utc
@@ -114,3 +123,35 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.play {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.play button[name="play"] {
+  width: 33px;
+  height: 33px;
+  background: rgb(130, 128, 122);
+  border: none;
+  border-radius: 100%;
+  margin: auto;
+  cursor: pointer;
+
+  &:hover {
+    background: rgb(165, 163, 156);
+  }
+}
+
+.play button[name="play"]::after {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  left: 2px;
+  border-style: solid;
+  border-width: 7px 0 7px 14px;
+  border-color: transparent transparent transparent white;
+}
+</style>

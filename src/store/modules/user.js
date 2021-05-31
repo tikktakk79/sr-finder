@@ -14,6 +14,9 @@ import {
   GET_PROGRAMS,
   REQ_FRIEND,
   CLEAR_USERDATA,
+  SEND_TIP,
+  GET_TIPS,
+  SET_PLAY,
 } from "../actions/user"
 import Vue from "vue"
 import { AUTH_LOGOUT } from "../actions/auth"
@@ -31,10 +34,14 @@ function baseState() {
     friends: [],
     episodes: [],
     programs: [],
+    tipsSent: [],
+    tipsReceived: [],
     changeTracker: 0,
     gotEpisodes: false,
     gotFriends: false,
     gotPrograms: false,
+    audioLink: "",
+    audioVisible: true,
   })
 }
 
@@ -204,6 +211,43 @@ const actions = {
   [CLEAR_USERDATA]: ({ commit, dispatch }, receiver) => {
     commit(CLEAR_USERDATA)
   },
+  [SET_PLAY]: ({ commit, dispatch }, playerLink) => {
+    commit(SET_PLAY, playerLink)
+  },
+  [GET_TIPS]: ({ commit }) => {
+    return storageCalls.getTips().then(
+      (resp) => {
+        console.log("Tips inside GET TIPS ACTION", resp)
+        console.log("Returning resp from inside GET_TIPS action")
+        // Filter resp and commit received tips and sent tips separately
+        let userTips = { tipsSent: resp[0], tipsReceived: resp[1] }
+        commit(GET_TIPS, userTips)
+        return
+      },
+      (err) => console.log("Error in getTips", { err })
+    )
+  },
+  [SEND_TIP]: ({ commit, dispatch }, { episode, username }) => {
+    return storageCalls
+      .sendTip(
+        episode.episode_id,
+        episode.title,
+        episode.program_name,
+        episode.program_id,
+        episode.description,
+        episode.url,
+        episode.pub_datum_utc,
+        episode.listen_link,
+        username
+      )
+      .then(
+        (resp) => {
+          console.log("Send tip resp", resp)
+          // dispatch GET_TIPS
+        },
+        (err) => console.log("Error in sendTip", { err })
+      )
+  },
 }
 
 const mutations = {
@@ -258,6 +302,14 @@ const mutations = {
   [CLEAR_USERDATA]: (state, friends) => {
     console.log("Clearing Userdata")
     baseState()
+  },
+  [SET_PLAY]: (state, audioLink) => {
+    state.audioLink = audioLink
+    state.audioVisible = true
+  },
+  [GET_TIPS]: (state, { tipsSent, tipsReceived }) => {
+    state.tipsSent = tipsSent
+    state.tipsReceived = tipsReceived
   },
 }
 

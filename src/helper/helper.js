@@ -1,4 +1,9 @@
-import { GET_EPISODES, GET_FRIENDS, GET_PROGRAMS } from "@/store/actions/user"
+import {
+  GET_EPISODES,
+  GET_FRIENDS,
+  GET_PROGRAMS,
+  GET_TIPS,
+} from "@/store/actions/user"
 import friendCalls from "@/services/user_storage/FriendCalls.js"
 import router from "@/router.js"
 
@@ -75,6 +80,14 @@ const helper = {
           }
         )
       }
+      store.dispatch(GET_TIPS).then(
+        () => {
+          console.log("Gick bra att GET_TIPS")
+        },
+        (err) => {
+          console.log("GICK ej bra att GET_TIPS", err)
+        }
+      )
     }
   },
 }

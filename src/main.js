@@ -11,6 +11,10 @@ import friendCalls from "@/services/user_storage/FriendCalls.js"
 import axios from "axios"
 import { storageApi } from "./services/StorageService"
 import helper from "@/helper/helper.js"
+import vSelect from "vue-select"
+import "vue-select/dist/vue-select.css"
+
+Vue.component("v-select", vSelect)
 
 Vue.use(VueSimpleAlert)
 Vue.use(ToggleButton)

@@ -40,8 +40,14 @@ export default {
     return {
       episodeSelected: true,
       currentView: "SearchEpisode",
+      testVar: 9,
     }
   },
   components: { SearchEpisode, RecentEpisodes },
 }
 </script>
+<style>
+.friend-select {
+  width: 150px;
+}
+</style>

@@ -318,6 +318,55 @@ const storageCalls = {
         }
       )
   },
+  sendTip(
+    id,
+    title = null,
+    show_name = null,
+    show_id = null,
+    description,
+    url = null,
+    pub_date = null,
+    listen_link = null,
+    receiver
+  ) {
+    return storageApi
+      .post("/tip", {
+        episode_id: id,
+        title,
+        show_name,
+        show_id,
+        description,
+        url,
+        listen_link,
+        pub_date,
+        username: receiver,
+      })
+      .then(
+        (resp) => {
+          console.log("Tips sparat och kirrat", resp)
+          return resp
+        },
+        (err) => {
+          console.log("Sorry funkante att lägga in tips", err)
+          throw err
+        }
+      )
+  },
+  getTips() {
+    console.log("From storage calls: GETTING TIPS")
+    console.log("the token is:", localStorage.getItem("user-token"))
+    return storageApi.get("/tip").then(
+      (response) => {
+        console.log("TIPS RESPONSE", response)
+        return response.data
+      },
+      (error) => {
+        console.log("ERR in storage calls get tips")
+        console.log("ERROR", error)
+        throw error
+      }
+    )
+  },
 }
 
 export default storageCalls

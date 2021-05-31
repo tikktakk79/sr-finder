@@ -1,46 +1,65 @@
 <template>
-  <div class="flex justify-center mt-2">
-    <ViewGrade v-if="!enableGrading">{{ this.episode.grade }}</ViewGrade>
-    <ViewGrade v-else-if="grade && !editGrade" @grade-click="setEditGrade">{{
-      this.grade
-    }}</ViewGrade>
+  <div>
+    <div class="flex justify-center mt-2">
+      <ViewGrade v-if="!enableGrading">{{ this.episode.grade }}</ViewGrade>
+      <ViewGrade v-else-if="grade && !editGrade" @grade-click="setEditGrade">{{
+        this.grade
+      }}</ViewGrade>
 
-    <div v-else class="flex justify-center">
-      <p
-        class="mini-screen font-bold bg-warmgray-500 px-1 text-white"
-        v-if="!this.gradeAction.length"
+      <div v-else class="flex justify-center">
+        <p
+          class="mini-screen font-bold bg-warmgray-500 px-1 text-white"
+          v-if="!this.gradeAction.length"
+        >
+          Ändra betyg:
+        </p>
+        <select
+          v-if="expanded || editGrade"
+          class="btn-black pl-3 pr-1"
+          v-model="grade"
+        >
+          <option v-if="this.gradeAction.length" disabled value>
+            {{ this.gradeAction }}
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <button
+        class="btn-black"
+        v-if="!stored && (expanded || editGrade)"
+        @click="saveEpisode(null)"
       >
-        Ändra betyg:
-      </p>
-      <select
-        v-if="expanded || editGrade"
-        class="btn-black pl-3 pr-1"
-        v-model="grade"
+        Spara
+      </button>
+      <button
+        class="btn-black"
+        v-if="(expanded && stored && gradeStored === null) || editGrade"
+        @click="removeEpisode"
       >
-        <option v-if="this.gradeAction.length" disabled value>
-          {{ this.gradeAction }}
-        </option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
+        Ta bort
+      </button>
     </div>
-    <button
-      class="btn-black"
-      v-if="!stored && (expanded || editGrade)"
-      @click="saveEpisode(null)"
-    >
-      Spara
-    </button>
-    <button
-      class="btn-black"
-      v-if="(expanded && stored && gradeStored === null) || editGrade"
-      @click="removeEpisode"
-    >
-      Ta bort
-    </button>
+    <div class="text-center mt-3">
+      <a v-if="enableTip" @click="activateTip" class="tip-link">Tipsa vän</a>
+    </div>
+    <div v-if="tipAction" class="flex justify-center items-center mt-8">
+      <p v-if="!selectionMade" class="inline-block mr-1">Tipsa vän:</p>
+
+      <v-select
+        class="friend-select"
+        :options="friendsEnabled"
+        label="username"
+        :value="selectedFriend"
+        @input="setSelected"
+      ></v-select>
+      <button v-if="selectionMade" @click="sendTip" class="btn-black">
+        Skicka tips
+      </button>
+    </div>
   </div>
 </template>
 
@@ -52,6 +71,8 @@ import {
   SAVE_EPISODE,
   REMOVE_EPISODE,
   GET_EPISODES,
+  SEND_TIP,
+  GET_TIPS,
 } from "@/store/actions/user"
 export default {
   data() {
@@ -61,6 +82,9 @@ export default {
       stored: false,
       gradeAction: "Betygsätt",
       editGrade: false,
+      tipAction: false,
+      selectionMade: false,
+      selectedFriend: "",
     }
   },
   components: { ViewGrade },
@@ -87,6 +111,38 @@ export default {
       allEpisodeIds: "getEpisodeIds",
       episodes: "getEpisodes",
     }),
+    enableTip() {
+      if (this.expanded && this.friendsEnabled.length && !this.tipAction) {
+        return true
+      }
+      return false
+    },
+    friendsEnabled() {
+      let friendUsers = this.$store.state.user.friends
+
+      let friendsEnabled = friendUsers.filter((friend) => {
+        console.log("friend in friendsEnabled", friend)
+        console.log("tipsSent in friendsEnabled", this.tipsSent)
+        let duplicateTips = this.tipsSent.filter((tip) => {
+          if (
+            friend.username === tip.anvandare &&
+            tip.avsnitt === this.episode.episode_id
+          ) {
+            console.log("DUplicate found!!!")
+            return true
+          }
+          return false
+        })
+        if (duplicateTips.length) {
+          return false
+        }
+        return true
+      })
+      return friendsEnabled
+    },
+    tipsSent() {
+      return this.$store.state.user.tipsSent
+    },
   },
 
   methods: {
@@ -150,6 +206,29 @@ export default {
         this.gradeAction = ""
       }
     },
+    activateTip() {
+      this.tipAction = true
+    },
+    setSelected(val) {
+      this.selectionMade = true
+      this.selectedFriend = val.username
+    },
+    sendTip() {
+      console.log("Episode in sendTip", this.episode)
+      this.$store
+        .dispatch(SEND_TIP, {
+          episode: this.episode,
+          username: this.selectedFriend,
+        })
+        .then(
+          () => {
+            this.$store.dispatch(GET_TIPS)
+          },
+          (err) => {
+            console.log("Error in sendTip in EpisodeActions", err)
+          }
+        )
+    },
   },
   watch: {
     episodes: function () {
@@ -185,15 +264,25 @@ export default {
     expanded: function (newVal) {
       if (!newVal) {
         this.editGrade = false
+        this.tipAction = false
+        this.selectionMade = false
       }
     },
   },
 }
 </script>
-<style scoped>
+<style>
 @media screen and (max-width: 370px) {
   .mini-screen {
     display: none;
   }
+}
+
+.vs__open-indicator {
+  cursor: pointer;
+}
+
+.tip-link {
+  cursor: pointer;
 }
 </style>
