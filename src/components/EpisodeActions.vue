@@ -1,33 +1,44 @@
 <template>
   <div>
-    <div class="flex justify-center mt-2">
+    <div
+      v-if="!enableGrading || (grade && !editGrade)"
+      class="flex justify-center mt-2"
+    >
       <ViewGrade v-if="!enableGrading">{{ this.episode.grade }}</ViewGrade>
       <ViewGrade v-else-if="grade && !editGrade" @grade-click="setEditGrade">{{
         this.grade
       }}</ViewGrade>
+    </div>
+    <div v-if="isTip" class="text-center">
+      <button @click="removeTip" class="btn-gray mx-auto mt-4 mb-4">
+        Ta bort från tips
+      </button>
+    </div>
+    <div
+      v-if="enableGrading && (!grade || editGrade)"
+      class="flex justify-center"
+    >
+      <p
+        class="mini-screen font-bold bg-warmgray-500 px-1 text-white"
+        v-if="!this.gradeAction.length"
+      >
+        Ändra betyg:
+      </p>
+      <select
+        v-if="expanded || editGrade"
+        class="btn-black pl-3 pr-1"
+        v-model="grade"
+      >
+        <option v-if="this.gradeAction.length" disabled value>
+          {{ this.gradeAction }}
+        </option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
 
-      <div v-else class="flex justify-center">
-        <p
-          class="mini-screen font-bold bg-warmgray-500 px-1 text-white"
-          v-if="!this.gradeAction.length"
-        >
-          Ändra betyg:
-        </p>
-        <select
-          v-if="expanded || editGrade"
-          class="btn-black pl-3 pr-1"
-          v-model="grade"
-        >
-          <option v-if="this.gradeAction.length" disabled value>
-            {{ this.gradeAction }}
-          </option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
       <button
         class="btn-black"
         v-if="!stored && (expanded || editGrade)"
@@ -43,6 +54,7 @@
         Ta bort
       </button>
     </div>
+
     <div class="text-center mt-3">
       <a v-if="enableTip" @click="activateTip" class="tip-link">Tipsa vän</a>
     </div>
@@ -104,6 +116,11 @@ export default {
       type: Boolean,
       required: false,
       default: true,
+    },
+    isTip: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {
@@ -229,6 +246,7 @@ export default {
           }
         )
     },
+    removeTip() {},
   },
   watch: {
     episodes: function () {

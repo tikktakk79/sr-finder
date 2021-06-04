@@ -1,50 +1,27 @@
 <template>
   <div class="text-center">
-    <div>
+    <div class="text-center">
       <h1 class="mb-6">Inställningar</h1>
-      <p class="mb-3">
-        Visa endast betyg för vänner
-        <toggle-button :value="secret" :sync="true" @change="Change" />
-      </p>
+      <div class="text-center">
+        <p class="w-52 mb-1 mx-auto">Visa endast betyg för vänner</p>
+        <toggle-button
+          :value="secret"
+          :sync="true"
+          @change="Change"
+          class="mb-4"
+        />
+        <p class="w-44 mb-1 mx-auto">
+          Skicka mail då jag blir tipsad om avsnitt
+        </p>
+        <toggle-button
+          :value="tipsMail"
+          :sync="true"
+          @change="changeTipsMail"
+          class="mb-4"
+        />
+      </div>
     </div>
-    <div class="flex justify-center">
-      <!-- <div
-        class="border-gray-400 border-2 border-separate px-3 my-3 pt-1.5 pb-3 mx-auto input-userdata"
-      >
-        <h3 class="mb-1.5 mt-1">Ändra användaruppgifter</h3>
-        <table v-if="gotData">
-          <tr>
-            <td align="right" class="py-2.5">
-              <label for="firstname">Förnamn:</label>
-            </td>
-            <td align="left">
-              <input v-model="firstname" type="text" />
-            </td>
-          </tr>
-          <tr>
-            <td align="right" class="py-2.5">
-              <label for="lastname">Efternamn:</label>
-            </td>
-            <td align="left">
-              <input v-model="lastname" type="text" placeholder="Efternamn" />
-            </td>
-          </tr>
-          <tr>
-            <td align="right" class="py-2.5">
-              <label for="email">Email:</label>
-            </td>
-            <td align="left">
-              <input v-model="email" type="text" placeholder="Email" />
-            </td>
-          </tr>
-        </table>
-        <div class="flex justify-center">
-          <button @click="updateUser" class="btn-black mt-2" type="submit">
-            Ändra uppgifter
-          </button>
-        </div>
-      </div> -->
-    </div>
+
     <div class="flex justify-center">
       <div
         class="border-gray-400 border-2 border-separate px-3 my-5 pt-1.5 pb-3 mx-auto input-userdata"
@@ -123,6 +100,7 @@ export default {
   data() {
     return {
       secret: false,
+      tipsMail: true,
       firstname: "",
       lastname: "",
       email: "",
@@ -164,6 +142,15 @@ export default {
           (err) => console.log("Error", { err })
         )
       }
+    },
+    changeTipsMail() {
+      friendCalls.setTipsMail(!this.tipsMail).then(
+        (resp) => {
+          console.log("tipsMail set in settings", resp)
+          this.tipsMail = !this.tipsMail
+        },
+        (err) => console.log("Error", { err })
+      )
     },
     updateUser() {
       storageCalls.updateUser(this.firstname, this.lastname, this.email).then(
@@ -243,21 +230,30 @@ export default {
         }
       },
       (err) => console.log("ERR", { err })
-    )
-    storageCalls.getUserData().then(
-      (resp) => {
-        console.log("Resp UserData inside settings.vue", resp)
-        let user = resp.data[0]
+    ),
+      friendCalls.tipsMail().then(
+        (resp) => {
+          console.log("Resp inside tipsMail settings", resp)
+          if (resp.data.length && resp.data[0].tips_mail) {
+            this.tipsMail = true
+          }
+        },
+        (err) => console.log("ERR", { err })
+      ),
+      storageCalls.getUserData().then(
+        (resp) => {
+          console.log("Resp UserData inside settings.vue", resp)
+          let user = resp.data[0]
 
-        this.firstname = user.fornamn
-        this.lastname = user.efternamn
-        this.email = user.email
+          this.firstname = user.fornamn
+          this.lastname = user.efternamn
+          this.email = user.email
 
-        this.gotData = true
-      },
+          this.gotData = true
+        },
 
-      (err) => console.log("ERR", { err })
-    )
+        (err) => console.log("ERR", { err })
+      )
   },
 }
 </script>

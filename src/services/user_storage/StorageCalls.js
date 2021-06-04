@@ -367,6 +367,30 @@ const storageCalls = {
       }
     )
   },
+  setOldTips() {
+    return storageApi.post("/tip/update").then(
+      (response) => {
+        console.log("RESPONSE", response.data)
+        return response
+      },
+      (error) => {
+        console.log("ERROR", error)
+        throw error
+      }
+    )
+  },
+  removeAllTips() {
+    return storageApi.post("/tip/remove-all").then(
+      (response) => {
+        console.log("RESPONSE", response.data)
+        return response
+      },
+      (error) => {
+        console.log("ERROR", error)
+        throw error
+      }
+    )
+  },
 }
 
 export default storageCalls

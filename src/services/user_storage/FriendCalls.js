@@ -105,6 +105,22 @@ const friendCalls = {
       }
     )
   },
+  setSecret(secret) {
+    return storageApi
+      .post("/secret", {
+        secret,
+      })
+      .then(
+        (resp) => {
+          console.log("RESPONSE FROM setSecret", resp.data)
+          return resp
+        },
+        (err) => {
+          console.log("ERROR", error)
+          throw err
+        }
+      )
+  },
   getSecret() {
     return storageApi.get("/secret").then(
       (resp) => {
@@ -117,14 +133,26 @@ const friendCalls = {
       }
     )
   },
-  setSecret(secret) {
+  getTipsMail() {
+    return storageApi.get("/tips-mail").then(
+      (resp) => {
+        console.log("RESPONSE FROM getTipsMail", resp.data)
+        return resp
+      },
+      (err) => {
+        console.log("ERROR", error)
+        throw err
+      }
+    )
+  },
+  setTipsMail(tipsMail) {
     return storageApi
-      .post("/secret", {
-        secret,
+      .post("/tips-mail", {
+        tips_mail: tipsMail,
       })
       .then(
         (resp) => {
-          console.log("RESPONSE FROM getSECRET", resp.data)
+          console.log("RESPONSE FROM setTipsMail", resp.data)
           return resp
         },
         (err) => {

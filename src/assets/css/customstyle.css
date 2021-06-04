@@ -76,6 +76,13 @@ a a:visited.page-nav {
   @apply bg-warmgray-500;
 }
 
+.btn-gray {
+  @apply rounded-full bg-warmgray-100 text-warmgray-600 border-2 border-warmgray-400 font-bold block ml-3 px-4 rounded-full;
+}
+.btn-gray:hover {
+  @apply bg-warmgray-200;
+}
+
 .active {
   @apply text-2xl;
   text-decoration: underline;

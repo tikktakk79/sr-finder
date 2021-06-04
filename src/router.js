@@ -13,6 +13,7 @@ import Friends from "./views/Friends.vue"
 import Settings from "./views/Settings.vue"
 import Error from "./views/Error.vue"
 import UserPage from "./views/UserPage.vue"
+import Tips from "./views/Tips.vue"
 import Verify from "./views/Verify.vue"
 import Store from "./store"
 import Helper from "@/helper/helper.js"
@@ -95,6 +96,12 @@ const router = new Router({
       path: "/user",
       name: "SearchUser",
       component: SearchUser,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      path: "/tips",
+      name: "Tips",
+      component: Tips,
       beforeEnter: ifAuthenticated,
     },
     {

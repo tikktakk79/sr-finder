@@ -5,6 +5,7 @@ import {
   GET_TIPS,
 } from "@/store/actions/user"
 import friendCalls from "@/services/user_storage/FriendCalls.js"
+import storageCalls from "@/services/user_storage/StorageCalls.js"
 import router from "@/router.js"
 
 const helper = {
@@ -53,6 +54,7 @@ const helper = {
                 return true
               }
             })
+
             if (unhandled.length) {
               console.log("ROUTE", router.currentRoute)
               if (router.currentRoute.path !== "/friends") {
@@ -63,6 +65,7 @@ const helper = {
               friendCalls.setOld().then((resp) => console.log("resp", resp)),
                 (err) => console.log("ERR", { err })
             }
+
             console.log("Friends from main.js", relations)
           },
           () => {
@@ -83,6 +86,21 @@ const helper = {
       store.dispatch(GET_TIPS).then(
         () => {
           console.log("Gick bra att GET_TIPS")
+          let tips = store.state.user.tipsReceived
+          let unhandledTips = tips.filter((tip) => tip.nytt_tips)
+
+          if (unhandledTips.length) {
+            if (
+              router.currentRoute.path !== "/friends" &&
+              router.currentRoute.path !== "/tips"
+            ) {
+              router.push("tips")
+            }
+
+            vueAlert("Du har fått nya lyssningstips!")
+            storageCalls.setOldTips().then((resp) => console.log("resp", resp)),
+              (err) => console.log("ERR", { err })
+          }
         },
         (err) => {
           console.log("GICK ej bra att GET_TIPS", err)

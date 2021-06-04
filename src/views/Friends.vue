@@ -3,6 +3,9 @@
     <div>
       <h1 class="text-center">Vänsida</h1>
       <div class="text-center mt-1.5">
+        <router-link class="btn" to="/tips">Visa lyssningstips</router-link>
+      </div>
+      <div class="text-center mt-1.5">
         <router-link class="btn" to="/user">Sök användare</router-link>
       </div>
     </div>

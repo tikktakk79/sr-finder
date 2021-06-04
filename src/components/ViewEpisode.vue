@@ -41,6 +41,7 @@
       :expanded="expanded"
       :grade="episode.grade"
       :enableGrading="enableGrading"
+      :isTip="isTip"
     ></EpisodeActions>
     <div v.if="expanded" class="p-1"></div>
     <div class="border mt-3 mb-4 mx-32"></div>
@@ -90,6 +91,11 @@ export default {
       type: Boolean,
       required: false,
       default: true,
+    },
+    isTip: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     gradeExt: {
       type: Number,
