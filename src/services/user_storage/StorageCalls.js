@@ -391,6 +391,18 @@ const storageCalls = {
       }
     )
   },
+  removeTip(episodeId, user) {
+    return storageApi.post("/tip/remove", { episodeId, user }).then(
+      (response) => {
+        console.log("RESPONSE", response.data)
+        return response
+      },
+      (error) => {
+        console.log("ERROR", error)
+        throw error
+      }
+    )
+  },
 }
 
 export default storageCalls

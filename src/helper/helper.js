@@ -12,7 +12,7 @@ const helper = {
   episodeFilter(rawArr) {
     let modEpisodes = []
     rawArr.forEach((episode) => {
-      modEpisodes.push({
+      let modEp = {
         id: episode.id,
         episode_id: episode.avsnitt,
         title: episode.titel,
@@ -23,7 +23,12 @@ const helper = {
         listenlink: episode.lyssningslank,
         pub_datum_utc: episode.pub_datum_utc,
         grade: episode.betyg,
-      })
+      }
+
+      if ("tipsare" in episode) {
+        modEp.tipsare = episode.tipsare
+      }
+      modEpisodes.push(modEp)
     })
 
     return modEpisodes

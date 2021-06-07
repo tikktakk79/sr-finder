@@ -246,7 +246,11 @@ export default {
           }
         )
     },
-    removeTip() {},
+    removeTip() {
+      storageCalls
+        .removeTip(this.episode.episode_id, this.episode.tipsare)
+        .then(this.$store.dispatch(GET_TIPS))
+    },
   },
   watch: {
     episodes: function () {

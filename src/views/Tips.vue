@@ -43,7 +43,8 @@ export default {
   },
   computed: {
     userTips() {
-      let allTips = this.$store.state.user.tipsReceived || []
+      let allTipsDeepCopy = this.$store.state.user.tipsReceived || []
+      let allTips = [...allTipsDeepCopy]
       let users = allTips.map((tip) => tip.tipsare)
       users = [...new Set(users)]
 
@@ -64,7 +65,8 @@ export default {
           if (storedDuplicates.length) {
             console.log("A duplicate!", ep)
             console.log("And stored version", storedDuplicates[0])
-            let modEp = storedDuplicates[0]
+            let modEp = { ...storedDuplicates[0] }
+            modEp.tipsare = ep.tipsare
             return modEp
           }
           ep.saved = false
