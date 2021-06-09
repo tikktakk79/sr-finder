@@ -1,35 +1,6 @@
-<style scoped>
-a {
-  text-decoration: none;
-}
-
-.gradient-text {
-  background-color: rgb(198, 195, 188);
-  background-image: linear-gradient(0deg, #535347, #ffffff);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-
-.vertical {
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-}
-
-#hamburger:hover {
-  cursor: pointer;
-  color: white;
-}
-
-#menu-toggle-2:checked + #menu {
-  display: block;
-}
-</style>
 <template>
   <div>
-    <div class="bg-black">
+    <div id="topnav" class="bg-black">
       <div
         v-if="loggedIn"
         @click="logout"
@@ -75,20 +46,24 @@ a {
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg
         ></label>
         <input class="hidden" type="checkbox" id="menu-toggle-2" />
+
         <div
           class="hidden px-10 sm:py-0 mdplus:p-0 max-w-view w-full flex-grow mdplus:flex mdplus:items-end mdplus:w-auto"
           id="menu"
         >
           <div
-            class="transform -mt-3 sm:mt-0 font-radio mdplus:flex-grow lg:translate-y-2.5"
+            class="transform -mt-3 sm:mt-0 mdplus:bg-warmgray-500 font-radio mdplus:flex-grow mdplus:translate-y-2.5"
           >
             <router-link
               v-for="item in menuItems"
               :key="item.name"
-              class="mdplus:inline-block menu-items"
+              class="mdplus:inline-block menu-items mdplus:menu-margin"
               :to="item.link"
-              ><div class="inline-block">{{ item.name }}</div></router-link
+              ><div class="inline-block">
+                {{ item.name }}
+              </div></router-link
             >
+
             <div
               v-if="loggedIn"
               @click="logout"
@@ -106,14 +81,21 @@ a {
             </router-link>
           </div>
         </div>
+        <div
+          class="hidden waves-short navmedium:block navbig:block navbig:mr-0 justify-self-end -mb-8 waves"
+        >
+          <Waves viewBox="0 0 1000 130" />
+        </div>
       </nav>
     </div>
+
     <!-- <h1 v-if="this.name !== 'GradedEpisodes'">{{ this.name }}</h1> -->
   </div>
 </template>
 
 <script>
 import { AUTH_LOGOUT } from "@/store/actions/auth"
+import Waves from "@/assets/img/svg/waves4.svg"
 import srCalls from "@/services/sr_api/ApiCalls.js"
 export default {
   data() {
@@ -142,6 +124,7 @@ export default {
       ],
     }
   },
+  components: { Waves },
   props: {
     name: {
       type: String,
@@ -168,3 +151,32 @@ export default {
 }
 console.log("Done with navbar")
 </script>
+<style scoped lang="scss">
+a {
+  text-decoration: none;
+}
+
+.gradient-text {
+  background-color: rgb(40, 39, 38);
+  background-image: linear-gradient(0deg, #535347, #ffffff);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+.vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+#hamburger:hover {
+  cursor: pointer;
+  color: white;
+}
+
+#menu-toggle-2:checked + #menu {
+  display: block;
+}
+</style>

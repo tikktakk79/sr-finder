@@ -1,6 +1,13 @@
 <template>
   <div>
     <form @submit.prevent="login">
+      <div class="text-center">
+        <p
+          class="sm:w-96 border-t-2 border-warmgray-300 border-b-2 py-2 px-3 mb-10 text-left mx-auto"
+        >
+          Betygsätt avsnitt och program på Sveriges Radio
+        </p>
+      </div>
       <h1 class="text-center">Logga in</h1>
 
       <table class="mx-auto input-userdata mt-3">

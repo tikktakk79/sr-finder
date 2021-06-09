@@ -102,7 +102,31 @@ a a:visited.page-nav {
 }
 
 .menu-items {
-  @apply block text-warmgray-200 mt-4 mdplus:bg-warmgray-200 mdplus:text-black px-2 lg:mt-0 mdplus:hover:bg-warmgray-50 mx-1.5;
+  @apply block text-warmgray-200 mt-4 mdplus:bg-warmgray-200 mdplus:text-black px-2 mdplus:mt-0 mdplus:hover:bg-warmgray-50 mdplus:mr-3;
 }
+
+@responsive{
+  .menu-margin:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.waves {
+ position: relative;
+  width: 400px;
+  height: 70px;
+}
+
+.waves-short {
+  margin-right: -150px;
+}
+
+/* .waves:after {
+  content:'';
+  position:absolute;
+  left:0; top: 0; right: 0; bottom:0;
+  z-index: 1;
+  background-color: blue;
+} */
 
 

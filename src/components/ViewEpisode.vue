@@ -127,6 +127,11 @@ export default {
       return modDate
     },
   },
+  watch: {
+    episode: function () {
+      this.expanded = false
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

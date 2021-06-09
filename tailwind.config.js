@@ -21,7 +21,9 @@ module.exports = {
         topmenu: "1fr auto 1fr",
       },
       screens: {
-        mdplus: "940px",
+        mdplus: "1050px",
+        navbig: "1400px",
+        navmedium: "1220px",
       },
       flexGrow: {
         max: 10000,
