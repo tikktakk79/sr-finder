@@ -1,3 +1,6 @@
+const path = require("path")
+const vueSrc = "./src"
+
 module.exports = {
   chainWebpack: (config) => {
     const svgRule = config.module.rule("svg")
