@@ -14,4 +14,12 @@ module.exports = {
   devServer: {
     host: "localhost",
   },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, vueSrc),
+      },
+      extensions: [".js", ".vue", ".json", ".svg"],
+    },
+  },
 }
