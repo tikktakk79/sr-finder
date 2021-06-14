@@ -50,7 +50,7 @@
 
 <script>
 import storageCalls from "@/services/user_storage/StorageCalls.js"
-import Expand from "@/assets/img/svg/expand.svg"
+import Expand from "@/assets/img/svg/expanded.svg"
 import Shrink from "@/assets/img/svg/shrink.svg"
 
 import EpisodeActions from "@/components/EpisodeActions.vue"
