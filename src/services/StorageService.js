@@ -4,7 +4,7 @@ import store from "../store"
 import { mapGetters } from "vuex"
 
 const storageApi = axios.create({
-  baseURL: `http://localhost:3000/api`,
+  baseURL: process.env.PRIVATE_API_URL + `http://localhost:3000/api`,
   withCredentials: false, // This is the default
   headers: {
     Accept: "application/json",
