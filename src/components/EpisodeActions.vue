@@ -232,6 +232,7 @@ export default {
     },
     sendTip() {
       console.log("Episode in sendTip", this.episode)
+      this.tipAction = false
       this.$store
         .dispatch(SEND_TIP, {
           episode: this.episode,
@@ -245,6 +246,7 @@ export default {
             console.log("Error in sendTip in EpisodeActions", err)
           }
         )
+      this.selectedFriend = ""
     },
     removeTip() {
       storageCalls
