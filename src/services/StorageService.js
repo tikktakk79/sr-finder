@@ -4,11 +4,12 @@ import store from "../store"
 import { mapGetters } from "vuex"
 
 const storageApi = axios.create({
-  baseURL: process.env.PRIVATE_API_URL + `http://localhost:3000/api`,
+  baseURL: process.env.VUE_APP_APIURL + `/api`,
   withCredentials: false, // This is the default
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "http://localhost:5000",
   },
   timeout: 10000,
 })
@@ -17,6 +18,7 @@ storageApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("user-token")
     console.log("Intercepting to add user token")
+    console.log("Process env", process.env.VUE_APP_APIURL)
     console.log("adding token", token)
     if (token) {
       config.headers.common["x-access-token"] = token
