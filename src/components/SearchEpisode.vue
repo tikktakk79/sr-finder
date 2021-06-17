@@ -54,7 +54,7 @@ export default {
   name: "SearchEpisode",
   data() {
     return {
-      searchstring: "tennis",
+      searchstring: "",
       rawEpisodes: [],
       nextPage: "",
       prevPage: "",
