@@ -11,7 +11,7 @@ const storageApi = axios.create({
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "http://localhost:5000",
   },
-  timeout: 10000,
+  timeout: 25000,
 })
 
 storageApi.interceptors.request.use(
