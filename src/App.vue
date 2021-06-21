@@ -31,7 +31,7 @@
         </div>
       </div>
       <div
-        class="sideblock hidden sm:block flex-grow right-gradient min-h-screen"
+        class="sideblock hidden md:block flex-grow right-gradient min-h-screen"
       ></div>
     </div>
   </div>
