@@ -110,10 +110,4 @@ console.log("Done importing in app.vue")
   transform: rotate(90deg);
   z-index: 2;
 }
-
-@media screen and (max-width: 640px) {
-  .sideblock {
-    display: none;
-  }
-}
 </style>

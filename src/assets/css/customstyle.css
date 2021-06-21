@@ -121,6 +121,12 @@ a a:visited.page-nav {
   margin-right: -150px;
 }
 
+@media screen and (max-width: 640px) {
+  .sideblock {
+    display: none;
+  }
+}
+
 /* .waves:after {
   content:'';
   position:absolute;
