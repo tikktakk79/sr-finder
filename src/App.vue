@@ -2,7 +2,7 @@
   <div id="app" class="bg-warmgray-50 min-h-screen w-full">
     <NavBar :name="$route.name" />
     <div class="flex justify-center">
-      <div class="flex-grow left-gradient min-h-screen"></div>
+      <div class="hidden sm:block flex-grow left-gradient min-h-screen"></div>
       <div class="w-full sm:max-w-2xl flex-grow-max">
         <router-view
           class="bg-white w-full min-h-screen px-4 py-12"
@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="flex-grow right-gradient min-h-screen"></div>
+      <div class="hidden sm:block flex-grow right-gradient min-h-screen"></div>
     </div>
   </div>
 </template>
