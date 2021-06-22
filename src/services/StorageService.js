@@ -1,8 +1,12 @@
 import axios from "axios"
 import router from "../router"
 import store from "../store"
+import Vue from "vue"
+
 import VueSimpleAlert from "vue-simple-alert"
 import { mapGetters } from "vuex"
+
+Vue.use(VueSimpleAlert)
 
 const storageApi = axios.create({
   baseURL: process.env.VUE_APP_APIURL + `/api`,
@@ -110,7 +114,7 @@ storageApi.interceptors.response.use(
       err.response.data.message === "Username taken"
     ) {
       console.log("Username taken")
-      VueSimpleAlert("Det valda användarnamnet är upptaget. Välj ett annat")
+      Vue.alert("Det valda användarnamnet är upptaget. Välj ett annat")
     } else {
       console.log("Unidentified error")
     }
