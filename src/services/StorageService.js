@@ -106,7 +106,7 @@ storageApi.interceptors.response.use(
         err.response.data &&
         err.response.data.message === "Username taken"
       ) {
-        VueSimpleAlert("Det valda användarnamnet är upptaget. välj ett annat")
+        VueSimpleAlert("Det valda användarnamnet är upptaget. Välj ett annat")
       } else {
         console.log("Unidentified error")
       }
