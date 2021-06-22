@@ -55,25 +55,44 @@ storageApi.interceptors.response.use(
     console.log("Err from interceptor in App.vue", { err })
     console.log("Error message", err.message)
     //console.log("Is this error name??", err.data.name)
-    return new Promise(function (resolve, reject) {
-      console.log("Inside Promise function")
-      if (router.response && err.response.data) {
-        console.log(err.response.data)
-      }
-      if (
-        (err.response &&
-          err.response.status === 401 &&
-          err.config &&
-          !err.config.__isRetryRequest) ||
-        (err.response &&
-          err.response.hasOwnProperty("data") &&
-          err.response.data.name === "JsonWebTokenError")
-      ) {
-        // if you ever get an unauthorized, logout the user
-        console.log("LOGGING OUT USER")
-        store.dispatch("AUTH_LOGOUT")
-        store.dispatch("CLEAR_USERDATA")
-        router.push("/login").catch((err) => {
+
+    if (router.response && err.response.data) {
+      console.log(err.response.data)
+    }
+    if (
+      (err.response &&
+        err.response.status === 401 &&
+        err.config &&
+        !err.config.__isRetryRequest) ||
+      (err.response &&
+        err.response.hasOwnProperty("data") &&
+        err.response.data.name === "JsonWebTokenError")
+    ) {
+      // if you ever get an unauthorized, logout the user
+      console.log("LOGGING OUT USER")
+      store.dispatch("AUTH_LOGOUT")
+      store.dispatch("CLEAR_USERDATA")
+      router.push("/login").catch((err) => {
+        // Ignore the vuex err regarding  navigating to the page they are already on.
+        if (
+          err.name !== "NavigationDuplicated" &&
+          !err.message.includes(
+            "Avoided redundant navigation to current location"
+          )
+        ) {
+          // But print any other errors to the console
+          logError(err)
+        }
+      })
+      // you can also redirect to /login if needed !
+    } else if (err.message === "Network Error") {
+      console.log("pushing error route")
+      router
+        .push({
+          name: "Error",
+          params: { message: "Ingen kontakt fås med servern." },
+        })
+        .catch((err) => {
           // Ignore the vuex err regarding  navigating to the page they are already on.
           if (
             err.name !== "NavigationDuplicated" &&
@@ -85,38 +104,17 @@ storageApi.interceptors.response.use(
             logError(err)
           }
         })
-        // you can also redirect to /login if needed !
-      } else if (err.message === "Network Error") {
-        console.log("pushing error route")
-        router
-          .push({
-            name: "Error",
-            params: { message: "Ingen kontakt fås med servern." },
-          })
-          .catch((err) => {
-            // Ignore the vuex err regarding  navigating to the page they are already on.
-            if (
-              err.name !== "NavigationDuplicated" &&
-              !err.message.includes(
-                "Avoided redundant navigation to current location"
-              )
-            ) {
-              // But print any other errors to the console
-              logError(err)
-            }
-          })
-      } else if (
-        err.response &&
-        err.response.data &&
-        err.response.data.message === "Username taken"
-      ) {
-        console.log("Username taken")
-        VueSimpleAlert("Det valda användarnamnet är upptaget. Välj ett annat")
-      } else {
-        console.log("Unidentified error")
-      }
-      throw err
-    })
+    } else if (
+      err.response &&
+      err.response.data &&
+      err.response.data.message === "Username taken"
+    ) {
+      console.log("Username taken")
+      VueSimpleAlert("Det valda användarnamnet är upptaget. Välj ett annat")
+    } else {
+      console.log("Unidentified error")
+    }
+    throw err
   }
 )
 
