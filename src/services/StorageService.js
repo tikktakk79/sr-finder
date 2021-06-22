@@ -104,7 +104,7 @@ storageApi.interceptors.response.use(
       } else if (
         err.response &&
         err.response.data &&
-        err.response.data === "Username taken"
+        err.response.data.message === "Username taken"
       ) {
         VueSimpleAlert("Det valda användarnamnet är upptaget. välj ett annat")
       } else {
