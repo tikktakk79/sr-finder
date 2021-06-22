@@ -56,6 +56,10 @@ storageApi.interceptors.response.use(
     console.log("Error message", err.message)
     //console.log("Is this error name??", err.data.name)
     return new Promise(function (resolve, reject) {
+      console.log("Inside Promise function")
+      if (router.response && err.response.data) {
+        console.log(err.response.data)
+      }
       if (
         (err.response &&
           err.response.status === 401 &&
@@ -106,6 +110,7 @@ storageApi.interceptors.response.use(
         err.response.data &&
         err.response.data.message === "Username taken"
       ) {
+        console.log("Username taken")
         VueSimpleAlert("Det valda användarnamnet är upptaget. Välj ett annat")
       } else {
         console.log("Unidentified error")
