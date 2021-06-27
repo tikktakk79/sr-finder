@@ -111,7 +111,8 @@ export default {
   computed: {
     gradedEpisodes() {
       let allEpisodes = this.storedEpisodes
-      let episodes = allEpisodes.filter((ep) => ep.grade !== null)
+      console.log("allEpisodes", allEpisodes)
+      let episodes = allEpisodes.filter((ep) => ![null, ""].includes(ep.betyg))
       episodes = helper.episodeFilter(episodes)
       episodes.sort((a, b) => (a.grade < b.grade ? 1 : -1))
       return episodes
