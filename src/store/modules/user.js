@@ -228,6 +228,7 @@ const actions = {
     )
   },
   [SEND_TIP]: ({ commit, dispatch }, { episode, username }) => {
+    commit(SEND_TIP, { episode, username })
     return storageCalls
       .sendTip(
         episode.episode_id,
@@ -310,6 +311,12 @@ const mutations = {
   [GET_TIPS]: (state, { tipsSent, tipsReceived }) => {
     state.tipsSent = tipsSent
     state.tipsReceived = tipsReceived
+  },
+  [SEND_TIP]: (state, { episode, username }) => {
+    state.tipsSent.push({
+      anvandare: username,
+      avsnitt: episode.episode_id,
+    })
   },
 }
 
