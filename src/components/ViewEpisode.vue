@@ -21,7 +21,7 @@
       </p>
     </div>
     <div class="flex justify-center items-center">
-      <div v-if="expanded" class="mt-3 mb-2">
+      <div v-if="expanded && soundLink" class="mt-3 mb-2">
         <figure class="play">
           <button @click="setPlay" name="play"></button>
         </figure>
@@ -43,7 +43,7 @@
       :enableGrading="enableGrading"
       :isTip="isTip"
     ></EpisodeActions>
-    <div v.if="expanded" class="p-1"></div>
+    <div v.if="expanded && soundLink" class="p-1"></div>
     <div class="border mt-3 mb-4 mx-32"></div>
   </div>
 </template>
@@ -110,10 +110,19 @@ export default {
   },
   methods: {
     setPlay() {
-      this.$store.dispatch(SET_PLAY, this.episode.listen_link)
+      console.log("This EP from setPlay", this.episode)
+      this.$store.dispatch(SET_PLAY, this.soundLink)
     },
   },
   computed: {
+    soundLink: function () {
+      if (this.episode.listenpodfile) {
+        return this.episode.listenpodfile
+      } else if (this.episode.listen_link) {
+        return this.episode.listen_link
+      }
+      return ""
+    },
     date: function () {
       let dateRaw = this.episode.pub_datum_utc
       let modDate = null

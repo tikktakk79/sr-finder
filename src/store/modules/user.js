@@ -17,6 +17,7 @@ import {
   SEND_TIP,
   GET_TIPS,
   SET_PLAY,
+  CLOSE_AUDIO,
 } from "../actions/user"
 import Vue from "vue"
 import { AUTH_LOGOUT } from "../actions/auth"
@@ -214,6 +215,9 @@ const actions = {
   [SET_PLAY]: ({ commit, dispatch }, playerLink) => {
     commit(SET_PLAY, playerLink)
   },
+  [CLOSE_AUDIO]: ({ commit, dispatch }) => {
+    commit(CLOSE_AUDIO)
+  },
   [GET_TIPS]: ({ commit }) => {
     return storageCalls.getTips().then(
       (resp) => {
@@ -307,6 +311,9 @@ const mutations = {
   [SET_PLAY]: (state, audioLink) => {
     state.audioLink = audioLink
     state.audioVisible = true
+  },
+  [CLOSE_AUDIO]: (state) => {
+    state.audioVisible = false
   },
   [GET_TIPS]: (state, { tipsSent, tipsReceived }) => {
     state.tipsSent = tipsSent

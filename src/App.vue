@@ -8,8 +8,8 @@
           class="bg-white w-full min-h-screen px-4 py-12"
           :key="$route.fullPath"
         />
-        <!-- v-if="audioLink.length && audioVisible" -->
         <div
+          v-if="audioLink.length && audioVisible"
           class="w-full sm:max-w-2xl py-1 flex-grow-max bg-warmgray-500 fixed bottom-0"
         >
           <audio
@@ -64,6 +64,7 @@ export default {
   },
   methods: {
     closeAudio() {
+      this.$store.dispatch("CLOSE_AUDIO")
       this.$store.state.user.audioVisible = false
     },
   },
