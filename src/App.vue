@@ -12,15 +12,17 @@
           v-if="audioLink.length && audioVisible"
           class="w-full sm:max-w-2xl py-1 flex-grow-max bg-warmgray-500 fixed bottom-0 pb-6"
         >
-          <audio
-            ref="player"
-            autoplay
-            class="mx-auto"
-            preload="auto"
-            controls="controls"
-          >
-            <source :src="audioLink" />
-          </audio>
+          <div class="px-8">
+            <audio
+              ref="player"
+              autoplay
+              class="mx-auto w-full"
+              preload="auto"
+              controls="controls"
+            >
+              <source :src="audioLink" />
+            </audio>
+          </div>
           <div @click="closeAudio" id="mdiv">
             <div class="mdiv">
               <div class="md"></div>
