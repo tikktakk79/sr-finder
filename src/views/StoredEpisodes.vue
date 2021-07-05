@@ -30,7 +30,7 @@ export default {
       console.log("Nu e ja här..")
       let allEpisodes = this.$store.state.user.episodes
       let episodes = allEpisodes.filter((ep) => ep.grade === null)
-      return episodes
+      return episodes.reverse()
     },
   },
 }

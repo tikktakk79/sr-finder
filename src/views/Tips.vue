@@ -72,6 +72,21 @@ export default {
           ep.saved = false
           return ep
         })
+        function compare(a, b) {
+          // Use toUpperCase() to ignore character casing
+          const idA = a.id
+          const idB = b.id
+
+          let comparison = 0
+          if (idA > idB) {
+            comparison = -1
+          } else if (idA < idB) {
+            comparison = 1
+          }
+          return comparison
+        }
+
+        episodes.sort(compare)
         return { user, episodes }
       })
       return userTips
