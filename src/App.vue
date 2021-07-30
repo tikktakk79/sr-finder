@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="bg-warmgray-50 min-h-screen w-full">
+    <span v-title data-title="Radioskugga"></span>
     <NavBar :name="$route.name" />
     <div class="flex justify-center">
       <div class="hidden sm:block flex-grow left-gradient min-h-screen"></div>
