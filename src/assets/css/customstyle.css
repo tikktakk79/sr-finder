@@ -102,12 +102,12 @@ a a:visited.page-nav {
 }
 
 .menu-items {
-  @apply block text-warmgray-200 mt-4 mdplus:bg-warmgray-200 mdplus:text-black px-2 mdplus:mt-0 mdplus:hover:bg-warmgray-50 mdplus:mr-3;
+  @apply block text-warmgray-200 mt-4 mdplus:bg-warmgray-200 mdplus:text-black px-2 mdplus:mt-0 mdplus:hover:bg-warmgray-50 mdplus:ml-3;
 }
 
 @responsive{
-  .menu-margin:last-of-type {
-    margin-right: 0;
+  .menu-margin:first-of-type {
+    margin-left: 0;
   }
 }
 
