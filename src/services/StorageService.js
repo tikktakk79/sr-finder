@@ -9,7 +9,7 @@ import { mapGetters } from "vuex"
 Vue.use(VueSimpleAlert)
 
 const storageApi = axios.create({
-  baseURL: process.env.VUE_APP_APIURL + `/api`,
+  baseURL: process.env.VUE_APP_APIURL2 + `/api`,
   withCredentials: false, // This is the default
   headers: {
     Accept: "application/json",
@@ -23,7 +23,7 @@ storageApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("user-token")
     console.log("Intercepting to add user token")
-    console.log("Process env", process.env.VUE_APP_APIURL)
+    console.log("Process env", process.env.VUE_APP_APIURL2)
     console.log("adding token", token)
     if (token) {
       config.headers.common["x-access-token"] = token
