@@ -9,7 +9,10 @@ export default {
   props: ["message"],
   computed: {
     outMessage() {
-      return this.message ? this.message : "Något gick dessvärre fel..."
+      let outMessage = this.message
+        ? this.message
+        : "Något gick dessvärre fel..."
+      return outMessage
     },
   },
 }
