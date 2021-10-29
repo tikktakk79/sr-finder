@@ -30,6 +30,7 @@ const ifNotAuthenticated = (to, from, next) => {
 }
 
 const ifAuthenticated = (to, from, next) => {
+  console.log("if Auth being run")
   if (Store.getters.isAuthenticated) {
     console.log("Store", Store)
     console.log("Token is", Store.state.token)
@@ -52,7 +53,6 @@ const ifAuthenticated = (to, from, next) => {
 }
 
 const router = new Router({
-  mode: "history",
   routes: [
     {
       path: "/",
