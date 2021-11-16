@@ -107,7 +107,7 @@ export default {
   methods: {
     removeAllTips() {
       this.$confirm(
-        "Är du säker på att du vill ta alla dina lyssningstips?"
+        "Är du säker på att du vill ta bort alla dina lyssningstips?"
       ).then(
         () => {
           storageCalls.removeAllTips().then(

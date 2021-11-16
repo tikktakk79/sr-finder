@@ -82,9 +82,9 @@
           </div>
         </div>
         <div
-          class="hidden waves-short navmedium:block navbig:block navbig:mr-0 justify-self-end -mb-8 waves"
+          class="hidden waves-short navmedium:block navbig:block navbig:-mr-56 -mt-2 -mr-96 justify-self-end -mb-8 waves"
         >
-          <Waves viewBox="0 0 1000 130" />
+          <Waves viewBox="0 5 1000 1000" />
         </div>
       </nav>
     </div>
@@ -95,7 +95,7 @@
 
 <script>
 import { AUTH_LOGOUT } from "@/store/actions/auth"
-import Waves from "@/assets/img/svg/waves4.svg"
+import Waves from "@/assets/img/svg/waveslong.svg"
 import srCalls from "@/services/sr_api/ApiCalls.js"
 export default {
   data() {

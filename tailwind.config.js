@@ -26,8 +26,8 @@ module.exports = {
       },
       screens: {
         mdplus: "1050px",
-        navbig: "1400px",
-        navmedium: "1220px",
+        navbig: "1450px",
+        navmedium: "1240px",
       },
       flexGrow: {
         max: 10000,
