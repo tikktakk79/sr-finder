@@ -110,6 +110,7 @@ export default {
   name: "Friends",
   methods: {
     accept(username) {
+      console.log("Accepting friend", username)
       friendCalls.acceptFriend(username).then((resp) => {
         console.log("Friend accepted", resp)
         this.$store.dispatch(GET_FRIENDS)
@@ -159,6 +160,9 @@ export default {
       console.log("users from frineds prop", users)
       return users
     },
+  },
+  created() {
+    this.$store.dispatch(GET_FRIENDS)
   },
 }
 </script>

@@ -224,14 +224,14 @@ export default {
   created: function () {
     friendCalls.getSecret().then(
       (resp) => {
-        console.log("Resp inisde settings created", resp)
+        console.log("Resp inside settings created", resp)
         if (resp.data.length && resp.data[0].hemligt) {
           this.secret = true
         }
       },
       (err) => console.log("ERR", { err })
     ),
-      friendCalls.tipsMail().then(
+      friendCalls.getTipsMail().then(
         (resp) => {
           console.log("Resp inside tipsMail settings", resp)
           if (resp.data.length && resp.data[0].tips_mail) {

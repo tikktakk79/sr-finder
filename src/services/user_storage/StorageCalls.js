@@ -394,7 +394,7 @@ const storageCalls = {
   removeTip(episodeId, user) {
     return storageApi.post("/tip/remove", { episodeId, user }).then(
       (response) => {
-        console.log("RESPONSE", response.data)
+        console.log("Inside removeTip in storageCalls")
         return response
       },
       (error) => {

@@ -249,9 +249,12 @@ export default {
       this.selectedFriend = ""
     },
     removeTip() {
+      console.log("removeTip type", storageCalls.removeTip)
       storageCalls
         .removeTip(this.episode.episode_id, this.episode.tipsare)
-        .then(this.$store.dispatch(GET_TIPS))
+        .then(() => {
+          this.$store.dispatch(GET_TIPS)
+        })
     },
   },
   watch: {

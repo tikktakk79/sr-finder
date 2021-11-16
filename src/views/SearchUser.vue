@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     fetchUsers() {
+      this.$store.dispatch(GET_FRIENDS)
       storageCalls
         .searchUser(this.username, this.firstname, this.lastname, this.email)
         .then((resp) => {
@@ -75,6 +76,7 @@ export default {
           } else {
             this.searchHits = []
           }
+          console.log("Search hits", this.searchHits)
         })
     },
   },

@@ -25,5 +25,4 @@ module.exports = {
       extensions: [".js", ".vue", ".json", ".svg"],
     },
   },
-  publicPath: "/radioskugga/",
 }
