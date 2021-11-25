@@ -42,6 +42,11 @@ export default {
             program_name: rawEp.program.name,
             program_id: rawEp.program.id,
             pub_datum_utc: rawEp.publishdateutc,
+            listen_link: !!rawEp.broadcast
+              ? rawEp.broadcast.broadcastfiles[0].url
+              : !!rawEp.listenpodfile
+              ? rawEp.listenpodfile.url
+              : null,
             grade: null,
           }
 
