@@ -140,7 +140,7 @@ export default {
       let friendsEnabled = friendUsers.filter((friend) => {
         console.log("friend in friendsEnabled", friend)
         console.log("tipsSent in friendsEnabled", this.tipsSent)
-        let duplicateTips = this.tipsSent.filter((tip) => {
+        let invalidTips = this.tipsSent.filter((tip) => {
           if (
             friend.username === tip.anvandare &&
             tip.avsnitt === this.episode.episode_id
@@ -148,9 +148,12 @@ export default {
             console.log("DUplicate found!!!")
             return true
           }
+          if (friend.godkann !== null) {
+            return true
+          }
           return false
         })
-        if (duplicateTips.length) {
+        if (invalidTips.length) {
           return false
         }
         return true

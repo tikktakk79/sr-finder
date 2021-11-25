@@ -47,13 +47,7 @@
               {{ user.message }}
             </button>
           </div>
-          <div v-if="user.friendStatus === 'waiting'" class="px-2">
-            <p>{{ user.message }}</p>
-          </div>
-          <div v-if="user.friendStatus === 'you'" class="px-2">
-            <p>{{ user.message }}</p>
-          </div>
-          <div v-if="user.friendStatus === 'friend'" class="px-2">
+          <div class="px-2">
             <p>{{ user.message }}</p>
           </div>
         </div>
@@ -118,11 +112,13 @@ export default {
           userStatus = friendProps[0].accept
         }
 
+        console.log("User status", userStatus)
+
         if (userStatus === "waiting") {
           message = "Väntar på godkännande"
         } else if (userStatus === "you") {
           message = "Väntar på ditt godkännande"
-        } else if (userStatus === "friend") {
+        } else if (userStatus === null && isFriend) {
           message = "Vän"
         }
 

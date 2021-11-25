@@ -155,9 +155,9 @@ export default {
     },
     waiting() {
       let users = this.relations.filter((rel) => {
-        return rel.godkann !== null && rel.godkann === rel.username
+        return rel.godkann !== null && rel.godkann === "waiting"
       })
-      console.log("users from frineds prop", users)
+      console.log("users from friends prop", users)
       return users
     },
   },
