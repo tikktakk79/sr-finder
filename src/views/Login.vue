@@ -35,10 +35,28 @@
           </td>
         </tr>
       </table>
-      <button @login="login" type="submit" class="btn-black mx-auto mt-3">
+      <button
+        v-if="!viewSpinner"
+        @login="login"
+        type="submit"
+        class="btn-black mx-auto mt-3"
+      >
         Logga in
       </button>
-      <router-link class="mt-6 flex justify-center" to="/register"
+      <Spinner
+        v-if="viewSpinner"
+        size="40"
+        line-size="6"
+        line-fg-color="#474747"
+        line-bg-color="#cccccc"
+        speed="1.1"
+        message="Loggar in..."
+        class="mt-4"
+      ></Spinner>
+      <router-link
+        v-if="!viewSpinner"
+        class="mt-6 flex justify-center"
+        to="/register"
         >Registrera ny användare</router-link
       >
     </form>
@@ -47,19 +65,24 @@
 
 <script>
 import { AUTH_REQUEST } from "@/store/actions/auth"
-import User from "@/models/user"
-import storageCalls from "@/services/user_storage/StorageCalls.js"
+import Spinner from "vue-simple-spinner"
 export default {
   name: "Login",
   data() {
     return {
       username: "",
       password: "",
+      viewSpinner: false,
     }
+  },
+
+  components: {
+    Spinner,
   },
 
   methods: {
     login: function () {
+      this.viewSpinner = true
       const { username, password } = this
       this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
         console.log("Going to/grades")

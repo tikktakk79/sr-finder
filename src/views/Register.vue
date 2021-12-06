@@ -44,17 +44,27 @@
       </table>
       <i class="text-red-700">{{ this.errString }}</i>
 
-      <button type="submit" class="btn-black mx-auto mt-2">Registrera</button>
+      <button v-if="!viewSpinner" type="submit" class="btn-black mx-auto mt-2">
+        Registrera
+      </button>
     </form>
+    <Spinner
+      v-if="viewSpinner"
+      size="40"
+      line-size="6"
+      line-fg-color="#474747"
+      line-bg-color="#cccccc"
+      speed="1.1"
+      message="Vänta lite..."
+      class="mt-4"
+    ></Spinner>
   </div>
 </template>
 
 <script>
-import { AUTH_REQUEST } from "@/store/actions/auth"
 import Store from "@/store"
-import { AUTH_LOGOUT } from "@/store"
-import User from "@/models/user"
 import storageCalls from "@/services/user_storage/StorageCalls.js"
+import Spinner from "vue-simple-spinner"
 export default {
   name: "Register",
   data() {
@@ -68,7 +78,12 @@ export default {
       badUsername: false,
       badPassword: false,
       errString: "",
+      viewSpinner: false,
     }
+  },
+
+  components: {
+    Spinner,
   },
 
   methods: {
@@ -95,7 +110,7 @@ export default {
         this.errString = errMessage.join(", ")
         return
       }
-
+      this.viewSpinner = true
       storageCalls
         .createUser(username, password, firstname, lastname, email)
         .then(
@@ -103,11 +118,13 @@ export default {
             console.log("Det gick vägen!")
             localStorage.clear()
             console.log(response)
+            this.viewSpinner = false
             this.$router.push("/verify")
           },
           (error) => {
             console.log("Tyvärr, funkante!")
             console.log(error)
+            this.viewSpinner = false
           }
         )
     },

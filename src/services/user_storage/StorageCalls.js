@@ -16,8 +16,8 @@ const storageCalls = {
         },
         (error) => {
           console.log("De bidde fel")
-          console.log(error)
-          let errorStatus = error.response.statusText
+          console.log("Felet:", error)
+          let errorStatus = error.response.data.statusText
           let errorMessage = ""
 
           if (errorStatus === "No match for user in database") {

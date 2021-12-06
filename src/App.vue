@@ -11,7 +11,7 @@
         />
         <div
           v-if="audioLink.length && audioVisible"
-          class="w-full sm:max-w-2xl py-1 flex-grow-max bg-warmgray-500 fixed bottom-0 pb-6"
+          class="w-full sm:max-w-2xl pb-6 sm:pb-1.5 py-1.5 flex-grow-max bg-warmgray-500 fixed bottom-0"
         >
           <div class="px-8">
             <audio

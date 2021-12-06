@@ -1,0 +1,175 @@
+App 3759628 output: Value of NODE_ENV production
+App 3759628 output: NODE_ENV production
+App 3759628 output: Allowed origins [ 'https://www.radioskugga.org', 'https://radioskugga.org' ]
+App 3759628 output: Our app is running on port 3000
+App 3759628 output: HEj fron loginUser, proc env production
+App 3759628 output: 1We got to here!
+App 3759628 output: 2We got to here!
+App 3759628 output: AND HERE
+App 3759628 output: UNAME test7
+App 3759628 output: Query text SELECT * FROM anvandare WHERE anvandarnamn = ?
+App 3759628 output: query connec error! Error: Access denied for user 'msberg'@'localhost' (using password: YES)
+App 3759628 output:     at Packet.asError (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packets/packet.js:728:17)
+App 3759628 output:     at ClientHandshake.execute (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/commands/command.js:29:26)
+App 3759628 output:     at PoolConnection.handlePacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:456:32)
+App 3759628 output:     at PacketParser.onPacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:85:12)
+App 3759628 output:     at PacketParser.executeStart (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packet_parser.js:75:16)
+App 3759628 output:     at Socket.<anonymous> (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:92:25)
+App 3759628 output:     at Socket.emit (events.js:314:20)
+App 3759628 output:     at addChunk (_stream_readable.js:297:12)
+App 3759628 output:     at readableAddChunk (_stream_readable.js:272:9)
+App 3759628 output:     at Socket.Readable.push (_stream_readable.js:213:10) {
+App 3759628 output:   code: 'ER_ACCESS_DENIED_ERROR',
+App 3759628 output:   errno: 1045,
+App 3759628 output:   sqlState: '28000',
+App 3759628 output:   sqlMessage: "Access denied for user 'msberg'@'localhost' (using password: YES)",
+App 3759628 output:   sql: undefined
+App 3759628 output: }
+App 3759628 output: HEj fron loginUser, proc env production
+App 3759628 output: 1We got to here!
+App 3759628 output: 2We got to here!
+App 3759628 output: AND HERE
+App 3759628 output: UNAME test7
+App 3759628 output: Query text SELECT * FROM anvandare WHERE anvandarnamn = ?
+App 3759628 output: query connec error! Error: Access denied for user 'msberg'@'localhost' (using password: YES)
+App 3759628 output:     at Packet.asError (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packets/packet.js:728:17)
+App 3759628 output:     at ClientHandshake.execute (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/commands/command.js:29:26)
+App 3759628 output:     at PoolConnection.handlePacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:456:32)
+App 3759628 output:     at PacketParser.onPacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:85:12)
+App 3759628 output:     at PacketParser.executeStart (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packet_parser.js:75:16)
+App 3759628 output:     at Socket.<anonymous> (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:92:25)
+App 3759628 output:     at Socket.emit (events.js:314:20)
+App 3759628 output:     at addChunk (_stream_readable.js:297:12)
+App 3759628 output:     at readableAddChunk (_stream_readable.js:272:9)
+App 3759628 output:     at Socket.Readable.push (_stream_readable.js:213:10) {
+App 3759628 output:   code: 'ER_ACCESS_DENIED_ERROR',
+App 3759628 output:   errno: 1045,
+App 3759628 output:   sqlState: '28000',
+App 3759628 output:   sqlMessage: "Access denied for user 'msberg'@'localhost' (using password: YES)",
+App 3759628 output:   sql: undefined
+App 3759628 output: }
+App 3759628 output: HEj fron loginUser, proc env production
+App 3759628 output: 1We got to here!
+App 3759628 output: 2We got to here!
+App 3759628 output: AND HERE
+App 3759628 output: UNAME test7
+App 3759628 output: Query text SELECT * FROM anvandare WHERE anvandarnamn = ?
+App 3759628 output: query connec error! Error: Access denied for user 'msberg'@'localhost' (using password: YES)
+App 3759628 output:     at Packet.asError (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packets/packet.js:728:17)
+App 3759628 output:     at ClientHandshake.execute (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/commands/command.js:29:26)
+App 3759628 output:     at PoolConnection.handlePacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:456:32)
+App 3759628 output:     at PacketParser.onPacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:85:12)
+App 3759628 output:     at PacketParser.executeStart (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packet_parser.js:75:16)
+App 3759628 output:     at Socket.<anonymous> (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:92:25)
+App 3759628 output:     at Socket.emit (events.js:314:20)
+App 3759628 output:     at addChunk (_stream_readable.js:297:12)
+App 3759628 output:     at readableAddChunk (_stream_readable.js:272:9)
+App 3759628 output:     at Socket.Readable.push (_stream_readable.js:213:10) {
+App 3759628 output:   code: 'ER_ACCESS_DENIED_ERROR',
+App 3759628 output:   errno: 1045,
+App 3759628 output:   sqlState: '28000',
+App 3759628 output:   sqlMessage: "Access denied for user 'msberg'@'localhost' (using password: YES)",
+App 3759628 output:   sql: undefined
+App 3759628 output: }
+App 3759628 output: HEj fron loginUser, proc env production
+App 3759628 output: 1We got to here!
+App 3759628 output: 2We got to here!
+App 3759628 output: AND HERE
+App 3759628 output: UNAME test7
+App 3759628 output: Query text SELECT * FROM anvandare WHERE anvandarnamn = ?
+App 3759628 output: query connec error! Error: Access denied for user 'msberg'@'localhost' (using password: YES)
+App 3759628 output:     at Packet.asError (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packets/packet.js:728:17)
+App 3759628 output:     at ClientHandshake.execute (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/commands/command.js:29:26)
+App 3759628 output:     at PoolConnection.handlePacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:456:32)
+App 3759628 output:     at PacketParser.onPacket (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:85:12)
+App 3759628 output:     at PacketParser.executeStart (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/packet_parser.js:75:16)
+App 3759628 output:     at Socket.<anonymous> (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/mysql2/lib/connection.js:92:25)
+App 3759628 output:     at Socket.emit (events.js:314:20)
+App 3759628 output:     at addChunk (_stream_readable.js:297:12)
+App 3759628 output:     at readableAddChunk (_stream_readable.js:272:9)
+App 3759628 output:     at Socket.Readable.push (_stream_readable.js:213:10) {
+App 3759628 output:   code: 'ER_ACCESS_DENIED_ERROR',
+App 3759628 output:   errno: 1045,
+App 3759628 output:   sqlState: '28000',
+App 3759628 output:   sqlMessage: "Access denied for user 'msberg'@'localhost' (using password: YES)",
+App 3759628 output:   sql: undefined
+App 3759628 output: }
+App 3970076 output: Value of NODE_ENV production
+App 3970076 output: NODE_ENV production
+App 3970076 output: Allowed origins [ 'https://www.radioskugga.org', 'https://radioskugga.org' ]
+App 3970076 output: Our app is running on port 3000
+App 3970076 output: HEj fron loginUser, proc env production
+App 3970076 output: 1We got to here!
+App 3970076 output: 2We got to here!
+App 3970076 output: AND HERE
+App 3970076 output: UNAME test7
+App 3970076 output: Query text SELECT * FROM anvandare WHERE anvandarnamn = ?
+App 3970076 output: connected to the db
+App 3970076 output: Query resolved []
+App 3970076 output: Code after resolve
+App 3970076 output: Queryn funkade här kommer rows []
+App 3970076 output: ERROR TypeError: Converting circular structure to JSON
+App 3970076 output:     --> starting at object with constructor 'Socket'
+App 3970076 output:     |     property 'parser' -> object with constructor 'HTTPParser'
+App 3970076 output:     --- property 'socket' closes the circle
+App 3970076 output:     at JSON.stringify (<anonymous>)
+App 3970076 output:     at stringify (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:1123:12)
+App 3970076 output:     at ServerResponse.json (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:260:14)
+App 3970076 output:     at ServerResponse.send (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:158:21)
+App 3970076 output:     at _callee2$ (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:213:65)
+App 3970076 output:     at tryCatch (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:63:40)
+App 3970076 output:     at Generator.invoke [as _invoke] (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:294:22)
+App 3970076 output:     at Generator.next (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:119:21)
+App 3970076 output:     at asyncGeneratorStep (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:22:103)
+App 3970076 output:     at _next (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:24:194)
+App 3992745 output: Value of NODE_ENV production
+App 3992745 output: NODE_ENV production
+App 3992745 output: Allowed origins [ 'https://www.radioskugga.org', 'https://radioskugga.org' ]
+App 3992745 output: Our app is running on port 3000
+App 3992745 output: HEj fron loginUser, proc env production
+App 3992745 output: 1We got to here!
+App 3992745 output: 2We got to here!
+App 3992745 output: AND HERE
+App 3992745 output: UNAME test7
+App 3992745 output: Query text SELECT * FROM anvandare WHERE anvandarnamn = ?
+App 3992745 output: connected to the db
+App 3992745 output: Query resolved []
+App 3992745 output: Code after resolve
+App 3992745 output: Queryn funkade här kommer rows []
+App 3992745 output: ERROR TypeError: Converting circular structure to JSON
+App 3992745 output:     --> starting at object with constructor 'Socket'
+App 3992745 output:     |     property 'parser' -> object with constructor 'HTTPParser'
+App 3992745 output:     --- property 'socket' closes the circle
+App 3992745 output:     at JSON.stringify (<anonymous>)
+App 3992745 output:     at stringify (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:1123:12)
+App 3992745 output:     at ServerResponse.json (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:260:14)
+App 3992745 output:     at ServerResponse.send (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:158:21)
+App 3992745 output:     at _callee2$ (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:213:65)
+App 3992745 output:     at tryCatch (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:63:40)
+App 3992745 output:     at Generator.invoke [as _invoke] (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:294:22)
+App 3992745 output:     at Generator.next (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:119:21)
+App 3992745 output:     at asyncGeneratorStep (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:22:103)
+App 3992745 output:     at _next (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:24:194)
+App 3992745 output: HEj fron loginUser, proc env production
+App 3992745 output: 1We got to here!
+App 3992745 output: 2We got to here!
+App 3992745 output: AND HERE
+App 3992745 output: UNAME test7
+App 3992745 output: Query text SELECT * FROM anvandare WHERE anvandarnamn = ?
+App 3992745 output: Query resolved []
+App 3992745 output: Code after resolve
+App 3992745 output: Queryn funkade här kommer rows []
+App 3992745 output: ERROR TypeError: Converting circular structure to JSON
+App 3992745 output:     --> starting at object with constructor 'Socket'
+App 3992745 output:     |     property 'parser' -> object with constructor 'HTTPParser'
+App 3992745 output:     --- property 'socket' closes the circle
+App 3992745 output:     at JSON.stringify (<anonymous>)
+App 3992745 output:     at stringify (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:1123:12)
+App 3992745 output:     at ServerResponse.json (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:260:14)
+App 3992745 output:     at ServerResponse.send (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/express/lib/response.js:158:21)
+App 3992745 output:     at _callee2$ (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:213:65)
+App 3992745 output:     at tryCatch (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:63:40)
+App 3992745 output:     at Generator.invoke [as _invoke] (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:294:22)
+App 3992745 output:     at Generator.next (/home/sjoburger/nodevenv/domains/server.radioskugga.org/12/lib/node_modules/regenerator-runtime/runtime.js:119:21)
+App 3992745 output:     at asyncGeneratorStep (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:22:103)
+App 3992745 output:     at _next (/home/sjoburger/domains/server.radioskugga.org/build/usingDB/controllers/users.js:24:194)

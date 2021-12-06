@@ -77,6 +77,7 @@ export default {
       })
     },
     changePage(episodeData) {
+      window.scrollTo(0, 0)
       console.log("EP data from changePage: ", episodeData)
       this.rawEpisodes = episodeData.rawEpisodes
       this.prevPage = episodeData.prevPage || ""
