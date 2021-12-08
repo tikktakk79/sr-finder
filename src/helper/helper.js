@@ -33,6 +33,31 @@ const helper = {
 
     return modEpisodes
   },
+  fetchTips(store, vueAlert) {
+    store.dispatch(GET_TIPS).then(
+      () => {
+        console.log("Gick bra att GET_TIPS")
+        let tips = store.state.user.tipsReceived
+        let unhandledTips = tips.filter((tip) => tip.nytt_tips)
+
+        if (unhandledTips.length) {
+          if (
+            router.currentRoute.path !== "/friends" &&
+            router.currentRoute.path !== "/tips"
+          ) {
+            router.push("tips")
+          }
+
+          vueAlert("Du har fått nya lyssningstips!")
+          storageCalls.setOldTips().then((resp) => console.log("resp", resp)),
+            (err) => console.log("ERR", { err })
+        }
+      },
+      (err) => {
+        console.log("GICK ej bra att GET_TIPS", err)
+      }
+    )
+  },
   fetchData(store, vueAlert) {
     {
       if (!store.getters.isAuthenticated) {
@@ -53,6 +78,7 @@ const helper = {
           () => {
             console.log("Det gick bra att GET FRIENDS")
             let relations = store.state.user.friends
+            console.log("relations from fetchData", relations)
             let usernames = relations.map((rel) => rel.username)
             let unhandled = relations.filter((rel) => {
               if (rel.ny_fraga && rel.godkann === "you") {
@@ -88,29 +114,7 @@ const helper = {
           }
         )
       }
-      store.dispatch(GET_TIPS).then(
-        () => {
-          console.log("Gick bra att GET_TIPS")
-          let tips = store.state.user.tipsReceived
-          let unhandledTips = tips.filter((tip) => tip.nytt_tips)
-
-          if (unhandledTips.length) {
-            if (
-              router.currentRoute.path !== "/friends" &&
-              router.currentRoute.path !== "/tips"
-            ) {
-              router.push("tips")
-            }
-
-            vueAlert("Du har fått nya lyssningstips!")
-            storageCalls.setOldTips().then((resp) => console.log("resp", resp)),
-              (err) => console.log("ERR", { err })
-          }
-        },
-        (err) => {
-          console.log("GICK ej bra att GET_TIPS", err)
-        }
-      )
+      this.fetchTips(store, vueAlert)
     }
   },
 }

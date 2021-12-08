@@ -15,13 +15,7 @@
                 {{ user.message }}
               </button>
             </td>
-            <td v-else-if="user.friendStatus === 'waiting'" class="px-2">
-              {{ user.message }}
-            </td>
-            <td v-else-if="user.friendStatus === 'you'" class="px-2">
-              {{ user.message }}
-            </td>
-            <td v-else-if="user.friendStatus === 'friend'" class="px-2">
+            <td v-else class="px-2">
               {{ user.message }}
             </td>
           </tr>
@@ -110,6 +104,7 @@ export default {
           })
           console.log("friendProps inside modUserList", friendProps)
           userStatus = friendProps[0].accept
+          newObj.friendStatus = userStatus
         }
 
         console.log("User status", userStatus)

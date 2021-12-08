@@ -140,6 +140,10 @@ export default {
       let friendsEnabled = friendUsers.filter((friend) => {
         console.log("friend in friendsEnabled", friend)
         console.log("tipsSent in friendsEnabled", this.tipsSent)
+        if (friend.godkann !== null) {
+            console.log("friend.godkann not null", friend.godkann)
+            return false
+        }
         let invalidTips = this.tipsSent.filter((tip) => {
           if (
             friend.username === tip.anvandare &&
@@ -148,9 +152,7 @@ export default {
             console.log("DUplicate found!!!")
             return true
           }
-          if (friend.godkann !== null) {
-            return true
-          }
+          console.log("Returning false from friendsenabled", friend.godkann)
           return false
         })
         if (invalidTips.length) {
@@ -231,7 +233,7 @@ export default {
     },
     setSelected(val) {
       this.selectionMade = true
-      this.selectedFriend = val.username
+      this.selectedFriend = val ? val.username : null
     },
     sendTip() {
       console.log("Episode in sendTip", this.episode)

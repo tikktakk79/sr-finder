@@ -45,8 +45,8 @@
       </button>
       <Spinner
         v-if="viewSpinner"
-        size="40"
-        line-size="6"
+        size=40
+        line-size=6
         line-fg-color="#474747"
         line-bg-color="#cccccc"
         speed="1.1"

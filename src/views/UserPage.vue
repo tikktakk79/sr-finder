@@ -30,7 +30,7 @@
           class="inline-block btn-black"
           @click="remove(user)"
         >
-          Ta bort vän
+          Avsluta vänskap
         </button>
       </div>
     </div>

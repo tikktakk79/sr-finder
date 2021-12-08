@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <h1 class="top-header">Lyssningstips</h1>
     <div
       v-for="user in userTips"
@@ -123,5 +124,8 @@ export default {
       )
     },
   },
+  created() {
+    helper.fetchTips(this.$store, this.$alert)
+  }
 }
 </script>

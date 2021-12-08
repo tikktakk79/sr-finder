@@ -225,7 +225,7 @@ export default {
     friendCalls.getSecret().then(
       (resp) => {
         console.log("Resp inside settings created", resp)
-        if (resp.data.length && resp.data[0].hemligt) {
+        if (resp.data.hemligt) {
           this.secret = true
         }
       },
@@ -234,9 +234,10 @@ export default {
       friendCalls.getTipsMail().then(
         (resp) => {
           console.log("Resp inside tipsMail settings", resp)
-          if (resp.data.length && resp.data[0].tips_mail) {
-            this.tipsMail = true
-          }
+          console.log("Tips mail prop: ", resp.data[0].tips_mail)
+          if (resp.data.length && !resp.data[0].tips_mail) {
+            this.tipsMail = false
+          } 
         },
         (err) => console.log("ERR", { err })
       ),

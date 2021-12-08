@@ -36,12 +36,22 @@
       :enableGrading="true"
       :includeProgram="false"
     ></ViewEpisode>
-    <PageLink v-if="prevPage" :pageLink="prevPage" @change-page="changePage"
-      >Föregående sida</PageLink
-    >
-    <PageLink v-if="nextPage" :pageLink="nextPage" @change-page="changePage"
-      >Nästa sida</PageLink
-    >
+    <div class="flex justify-center my-4">
+      <PageLink
+        v-if="prevPage"
+        :pageLink="prevPage"
+        @change-page="changePage"
+        class="mx-2"
+        >Föregående sida</PageLink
+      >
+      <PageLink
+        v-if="nextPage"
+        :pageLink="nextPage"
+        @change-page="changePage"
+        class="mx-2"
+        >Nästa sida</PageLink
+      >
+    </div>
   </div>
 </template>
 
@@ -70,7 +80,7 @@ export default {
       programGrade: "",
       updateGrade: false,
       allowGradeUpdate: true,
-      gradeAction: "Betygsätt",
+      gradeAction: "Betygsätt program",
     }
   },
   components: { ProgramName, ViewEpisode, PageLink, ProgramAction },
@@ -93,6 +103,7 @@ export default {
       )
     },
     changePage(episodeData) {
+      window.scrollTo(0, 0)
       console.log("Change page in recent episodes")
       console.log("ep data", episodeData)
       this.episodes = episodeData.rawEpisodes

@@ -51,10 +51,10 @@
     <Spinner
       v-if="viewSpinner"
       size="40"
-      line-size="6"
+      line-size=6
       line-fg-color="#474747"
       line-bg-color="#cccccc"
-      speed="1.1"
+      speed=1.1
       message="Vänta lite..."
       class="mt-4"
     ></Spinner>
