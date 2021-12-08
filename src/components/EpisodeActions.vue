@@ -41,7 +41,7 @@
 
       <button
         class="btn-black"
-        v-if="!stored && (expanded || editGrade)"
+        v-if="!saveClicked && !stored && (expanded || editGrade)"
         @click="saveEpisode(null)"
       >
         Spara
@@ -96,6 +96,7 @@ export default {
       editGrade: false,
       tipAction: false,
       selectionMade: false,
+      saveClicked: false,
       selectedFriend: "",
     }
   },
@@ -141,8 +142,8 @@ export default {
         console.log("friend in friendsEnabled", friend)
         console.log("tipsSent in friendsEnabled", this.tipsSent)
         if (friend.godkann !== null) {
-            console.log("friend.godkann not null", friend.godkann)
-            return false
+          console.log("friend.godkann not null", friend.godkann)
+          return false
         }
         let invalidTips = this.tipsSent.filter((tip) => {
           if (
@@ -188,6 +189,7 @@ export default {
     },
     saveEpisode(grade = null) {
       console.log("modEp", this.episode)
+      this.saveClicked = true
       let modEpisode = this.episode
       if (grade) {
         console.log("Setting GRADE", grade)
